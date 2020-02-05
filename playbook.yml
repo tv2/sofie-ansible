@@ -1,0 +1,117 @@
+# Ansible Playbook for installing Mumble on Raspberry Pi with SoundInjector card 
+# www.mumble.info
+
+- name: Select Sofier Server hosts from hosts file
+  hosts: sofieserver
+  become: yes
+
+  tasks:
+    # Update apt packages
+    - name: Update apt packages
+      become: yes
+      apt:
+        update_cache: yes
+
+    # Upgrade apt packages
+    - name: Upgrade apt packages
+      become: yes
+      apt:
+        upgrade: dist
+
+    - name: Install Docker
+      become: yes
+      apt:
+        name: docker
+        install_recommends: yes
+        state: present
+
+    # Install Nginx
+    - name: Install nginx
+      become: yes
+      apt:
+        name: nginx
+        state: present
+
+    # Remove Pulse Audio - to avoid conflicts with ALSA:
+    - name: Uninstall Pulse-Audio
+      become: yes
+      apt:
+        name: pulseaudio
+        state: absent
+
+    # Setup SoundCard:
+    - name: disable built-in soundcard driver
+      lineinfile:
+        dest: /boot/config.txt
+        regexp: 'dtparam=audio=on'
+        line: '#dtparam=audio=on'
+        state: present
+        
+    - name: enable Soundjector soundcard driver
+      lineinfile:
+        dest: /boot/config.txt
+        regexp: 'dtoverlay=audioinjector-wm8731-audio'
+        insertafter: EOF
+        line: 'dtoverlay=audioinjector-wm8731-audio'
+        state: present
+
+    # Load Mumble at boot
+    - name: add mumble as bootitem
+      lineinfile:
+        dest: /home/pi/.config/lxsession/LXDE-pi/autostart
+        regexp: '@mumble mumble'
+        insertafter: EOF
+        line: '@mumble mumble://{{ inventory_hostname }}@{{ MUMBLE_SERVER_IP }}/{{ MUMBLE_FOLDER }}/?version=1.2.0'
+        state: present
+
+    # Load OpenVPN at boot:
+    - name: add OpenVPN on boot
+      lineinfile:
+        dest: /home/pi/.config/lxsession/LXDE-pi/autostart
+        regexp: 'sudo openvpn'
+        insertafter: EOF
+        line: '@sudo openvpn --config ~/{{ inventory_hostname }}.ovpn'
+        state: present
+
+    # Create Mumble Config dir if not exists
+    - name: Create .config/Mumble dir
+      file:
+        path: /home/pi/.config/Mumble
+        recurse: yes
+        state: directory
+
+    # Copy Mumble Audio settings (certificate not included as this has to be generated on each machine independently)
+    - name: Copy Mumble.conf file with all settings 
+      copy:
+        src: files/Mumble.conf
+        dest: /home/pi/.config/Mumble/Mumble.conf
+        force: no
+        owner: pi
+        group: pi
+        mode: 0644
+
+    # Copy ALSAMIXER settings
+    - name: Copy Alsamixer file stored by alsactl store
+      copy:
+        src: files/asound.state
+        dest: /var/lib/alsa/asound.state
+        owner: root
+        group: root
+        mode: 0644
+
+# ToDOs:
+
+    # Install Adafruit Retrogame (GPI Key-trig)
+    # https://github.com/adafruit/Adafruit-Retrogame.git
+
+
+    #Transfer retrogame.cnf file
+    #Defines F1-F8 shortcuts on GPI
+
+
+    # Create Mumble certificate
+
+
+#Setup Teamviewer or enable VNC?
+
+#Reboot when new changes are added
