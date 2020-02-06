@@ -87,6 +87,13 @@
         owner: root
         group: root
         mode: 0644 
+
+    - name: Edit ip adress filebeat in config file
+      lineinfile:
+        dest: /etc/filebeat/filebeat.yml
+        regexp: 'hosts: ["X.X.X.X:9200"]'
+        line: 'hosts: ["{{ ELASTIC_IP }}:9200"]'
+        state: present
   
     - name: restart filebeat
       service:

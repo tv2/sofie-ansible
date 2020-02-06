@@ -16,6 +16,3 @@ yarn
 Deploy the blueprints from the deployment scriptmenu. (later in this README.md)
 
 ## Future steps:
-- Httpproxy for core to webhook slack?
-- Core ntp servers?
-- Nginx ssl?
