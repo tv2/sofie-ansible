@@ -1,8 +1,30 @@
 # tv2-sofie-ansible
 Ansible playbook for deploying Sofie Systems
 
-This is in it´s initial state, and NOT working..
+### Install ansible:
+on ubuntu:
+```
+sudo apt install ansible
+```
 
+### Clone:
+```
+git clone https://github.com/olzzon/tv2-sofie-ansible
+```
+
+### Edit the inventory file:
+```
+cp hosts.example hosts
+nano hosts
+```
+
+### Run Ansible:
+```
+ansible-playbook playbook.yml -i hosts
+``` 
+
+
+Todo´s:
 ### Setup filebeat to log to kibana
 * Indexes in kibana will need to be created manually to match those in elasticsearch
 
