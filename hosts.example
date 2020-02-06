@@ -8,3 +8,7 @@
     ansible_ssh_pass=raspberry
     ELASTIC_SERVER_IP=xx.xx.xx.xx
     ELASTIC_SERVER_PORT=9200
+    CORE_TAG=develop
+    INEWS_TAG=develop
+    PLAYOUT_TAG=develop
+    SISYFOS_TAG=develop
