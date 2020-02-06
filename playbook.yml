@@ -93,3 +93,23 @@
         name: olzzon/sisyfos-audio-controller:{{ SISYFOS_TAG }}
 
 
+
+    # Run images:
+    - name: Run Core
+      docker_container:
+        name: server-core
+        image: olzzon/tv-automation-server-core:{{ CORE_TAG }}
+        state: reloaded
+        ports:
+          - "127.0.0.1:8080:80/tcp"
+        volumes:
+          - "/opt/coredisk:/opt/coredisk"
+        restart_policy: always
+        network_mode: "sofie"
+        env:
+          TZ: {{ TIMEZONE }}
+          MONGO_OPLOG_URL: "mongodb://mongo:27017/local"
+          MONGO_URL: "mongodb://mongo:27017/sofie"
+          ROOT_URL: "http://$TODO: HOSTNAME"
+          PORT: 80
+          HTTP_FORWARDED_COUNT: 1
