@@ -16,7 +16,7 @@
     # Install Docker-CE and requirements:
     - name: Install required system packages
       apt: 
-        name: {{ item }} 
+        name: "{{ item }}" 
         state: latest 
         update_cache: yes
       loop: [ 
@@ -74,7 +74,7 @@
         state: restart
 
     # Install and configure Filebeat:
-      - name: Update apt and install filebeat
+    - name: Update apt and install filebeat
       apt: 
         update_cache: yes 
         name: filebeat
@@ -103,23 +103,23 @@
     # Pull dockerimages:
 
     - name: Pull MongoDb
-      docker_images:
+      docker_image:
         name: mongo:{{ MONGO_TAG }}
 
     - name: pull Sofie Core
-      docker_images:
+      docker_image:
         name: olzzon/tv-automation-server-core:{{ CORE_TAG }}
 
     - name: pull Sofie iNews Gateway
-      docker_images:
+      docker_image:
         name: olzzon/tv2-inews-ftp-gateway:{{ INEWS_TAG }}
   
     - name: pull Sofie Playout Gateway
-      docker_images:
+      docker_image:
         name: olzzon/tv-automation-playout-gateway:{{ PLAYOUT_TAG }}
     
     - name: pull Sisyfos
-      docker_images:
+      docker_image:
         name: olzzon/sisyfos-audio-controller:{{ SISYFOS_TAG }}
 
     # Spin up images:
@@ -139,10 +139,10 @@
         restart_policy: always
         network_mode: "sofie"
         env:
-          TZ: {{ TIMEZONE }}
+          TZ: "{{ TIMEZONE }}"
           MONGO_OPLOG_URL: "mongodb://mongo:27017/local"
           MONGO_URL: "mongodb://mongo:27017/sofie"
-          ROOT_URL: "http://"{{ HOSTNAME }}
+          ROOT_URL: "http://{{ HOSTNAME }}"
           PORT: 80
           HTTP_FORWARDED_COUNT: 1
 
@@ -158,10 +158,10 @@
         restart_policy: always
         network_mode: "sofie"
         env:
-          TZ: {{ TIMEZONE }}
+          TZ: "{{ TIMEZONE }}"
           MONGO_OPLOG_URL: "mongodb://mongo:27017/local"
           MONGO_URL: "mongodb://mongo:27017/sofie"
-          ROOT_URL: "http://"{{ HOSTNAME }}
+          ROOT_URL: "http://{{ HOSTNAME }}"
           PORT: 80
           HTTP_FORWARDED_COUNT: 1
 
@@ -173,11 +173,11 @@
         restart_policy: always
         network_mode: "sofie"
         env:
-          TZ: {{ TIMEZONE }}
+          TZ: "{{ TIMEZONE }}"
           CORE_HOST: "server-core"
           CORE_PORT: 80
-          DEVICE_ID: {{ HOSTNAME }}
-          DEVICE_TOKEN: {{ TOKEN }}
+          DEVICE_ID: "{{ HOSTNAME }}"
+          DEVICE_TOKEN: "{{ TOKEN }}"
 
     - name: Run Playout Gateway
       docker_container:
@@ -187,11 +187,11 @@
         restart_policy: always
         network_mode: "sofie"
         env:
-          TZ: {{ TIMEZONE }}
+          TZ: "{{ TIMEZONE }}"
           CORE_HOST: "server-core"
           CORE_PORT: 80
-          DEVICE_ID: {{ HOSTNAME }}
-          DEVICE_TOKEN: {{ TOKEN }}
+          DEVICE_ID: "{{ HOSTNAME }}"
+          DEVICE_TOKEN: "{{ TOKEN }}"
 
     - name: Run Sisyfos
       docker_container:
@@ -207,6 +207,6 @@
         restart_policy: always
         network_mode: "sofie"
         env:
-          TZ: {{ TIMEZONE }}
-          loggerIp: {{ ELASTIC_IP }}
-          loggerPort: {{ ELASTIC_PORT }}
+          TZ: "{{ TIMEZONE }}"
+          loggerIp: "{{ ELASTIC_IP }}"
+          loggerPort: "{{ ELASTIC_PORT }}"
