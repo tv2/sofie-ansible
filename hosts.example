@@ -1,14 +1,14 @@
 # Hostnames for devices 
 
 [sofieserver]
-    Qbox01 ansible_ssh_host=192.xxx.xx.xx SOFIE_FOLDER=xxx
+    Qbox01 ansible_ssh_host=192.xxx.xx.xx HOSTNAME=xxx TOKEN=hjk3234hjk1l1k2j3h1k1j2h4gb
 
 [sofieserver:vars]
     ansible_user=pi 
     ansible_ssh_pass=raspberry
     TIMEZONE=copenhagen
-    ELASTIC_SERVER_IP=xx.xx.xx.xx
-    ELASTIC_SERVER_PORT=9200
+    ELASTIC_IP=xx.xx.xx.xx
+    ELASTIC_PORT=9200
     CORE_TAG=develop
     INEWS_TAG=develop
     PLAYOUT_TAG=develop
