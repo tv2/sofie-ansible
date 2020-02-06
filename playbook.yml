@@ -49,6 +49,9 @@
       pip:
         name: docker
 
+    - name: Create a network
+      docker_network:
+        name: sofie
 
     # Install Nginx
     - name: Install nginx
@@ -70,4 +73,23 @@
       service:
         name: nginx
         state: restart
+
+    # Pull dockerimages:
+
+    - name: pull Sofie Core
+      docker_images:
+        name: olzzon/tv-automation-server-core:{{ CORE_TAG }}
+
+    - name: pull Sofie iNews Gateway
+      docker_images:
+        name: olzzon/tv2-inews-ftp-gateway:{{ INEWS_TAG }}
+  
+    - name: pull Sofie Playout Gateway
+      docker_images:
+        name: olzzon/tv-automation-playout-gateway:{{ PLAYOUT_TAG }}
+    
+    - name: pull Sisyfos
+      docker_images:
+        name: olzzon/sisyfos-audio-controller:{{ SISYFOS_TAG }}
+
 
