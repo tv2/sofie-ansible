@@ -53,15 +53,14 @@
       docker_network:
         name: sofie
 
-    # Install Nginx
+    # Install and configure Nginx
     - name: Install nginx
       become: yes
       apt:
         name: nginx
         state: latest
 
-    # Configure nginx and restart
-    - name: Copy Nginx settings
+    - name: Copy nginx settings
       copy:
         src: files/nginx.cinf
         dest: /etc/nginx/
@@ -72,6 +71,26 @@
     - name: restart nginx
       service:
         name: nginx
+        state: restart
+
+    # Install and configure Filebeat:
+      - name: Update apt and install filebeat
+      apt: 
+        update_cache: yes 
+        name: filebeat
+        state: latest
+
+    - name: Copy filebeat settings
+      copy:
+        src: files/filebeat.yml
+        dest: /etc/filebeat/
+        owner: root
+        group: root
+        mode: 0644 
+  
+    - name: restart filebeat
+      service:
+        name: filebeat
         state: restart
 
     # Pull dockerimages:
@@ -96,12 +115,8 @@
       docker_images:
         name: olzzon/sisyfos-audio-controller:{{ SISYFOS_TAG }}
 
-
-
     # Spin up images:
     
-
-
     # TODO: MongoDB  Replicaset: --replSet rs0
     - name: Run MongoDB
       docker_container:
