@@ -76,6 +76,10 @@
 
     # Pull dockerimages:
 
+    - name: Pull MongoDb
+      docker_images:
+        name: mongo:{{ MONGO_TAG }}
+
     - name: pull Sofie Core
       docker_images:
         name: olzzon/tv-automation-server-core:{{ CORE_TAG }}
@@ -94,7 +98,32 @@
 
 
 
-    # Run images:
+    # Spin up images:
+    
+
+
+    # TODO: MongoDB  Replicaset: --replSet rs0
+    - name: Run MongoDB
+      docker_container:
+        name: mongo
+        image: mongo:{{ MONGO_TAG }}
+        state: reloaded
+        ports:
+          - "127.0.0.1:27017:27017"
+        volumes:
+          - "/opt/coredisk:/opt/coredisk"
+          - "/opt/mongo/backup:/data/backup"
+          - "/etc/timezone:/etc/timezone:ro"
+        restart_policy: always
+        network_mode: "sofie"
+        env:
+          TZ: {{ TIMEZONE }}
+          MONGO_OPLOG_URL: "mongodb://mongo:27017/local"
+          MONGO_URL: "mongodb://mongo:27017/sofie"
+          ROOT_URL: "http://"{{ HOSTNAME }}
+          PORT: 80
+          HTTP_FORWARDED_COUNT: 1
+
     - name: Run Core
       docker_container:
         name: server-core

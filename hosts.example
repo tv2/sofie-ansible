@@ -13,3 +13,4 @@
     INEWS_TAG=develop
     PLAYOUT_TAG=develop
     SISYFOS_TAG=develop
+    MONGO_TAG=3.4
