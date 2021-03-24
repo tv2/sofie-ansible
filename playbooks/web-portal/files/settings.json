@@ -1,0 +1,41 @@
+{
+    "users": [
+        {
+            "id": "afvdlyd",
+            "name": "Afv.D Lyd"
+        },
+        {
+            "id": "nyhedlyd",
+            "name": "Nyhederne Lyd"
+        },
+        {
+            "id": "mcr1",
+            "name": "MCR 1"
+        },
+        {
+            "id": "cont1",
+            "name": "CONT 1"
+        }
+    ],
+   "webpages": [
+        {
+            "id": 1,
+            "name": "Q-BOX 01",
+            "description": "",
+            "hostname": "http://13.53.81.21:8080/webpage1"
+        },
+        {
+            "id": 2,
+            "name": "Q-BOX 02",
+            "description": "",
+            "hostname": "http://13.53.81.21:8080/webpage2"
+        },
+        {
+            "id": 3,
+            "name": "Q-BOX 03",
+            "description": "",
+            "hostname": "http://13.53.81.21:8080/q3"
+        }
+    ]
+
+}

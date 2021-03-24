@@ -1,0 +1,14 @@
+# Ansible Playbook setting up Sofie Portal
+
+- name: Setup ubuntu core
+  become: yes
+  hosts: aws
+
+  tasks:
+    # Install apt:
+    - name: Install aptitude using apt
+      apt:
+        name: aptitude
+        state: latest
+        update_cache: yes
+        force_apt_get: yes

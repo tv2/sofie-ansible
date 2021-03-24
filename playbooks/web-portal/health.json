@@ -1,0 +1,461 @@
+{
+    "name": "Sofie Automation system",
+    "instanceId": "uyfL7Djtj23sJwHpB",
+    "updated": "2021-03-19T07:23:09.727Z",
+    "status": "OK",
+    "_status": 1,
+    "documentation": "https://github.com/nrkno/tv-automation-server-core",
+    "_internal": {
+      "statusCodeString": "GOOD",
+      "messages": [],
+      "versions": {
+        "mos-connection": "0.9.0",
+        "superfly-timeline": "8.1.2",
+        "core": "1.16.1",
+        "timeline-state-resolver-types": "1.3.0"
+      }
+    },
+    "checks": [
+      {
+        "description": "systemTime",
+        "status": "OK",
+        "updated": "2021-03-15T15:21:41.910Z",
+        "_status": 1,
+        "errors": [
+          {
+            "type": "message",
+            "time": "2021-03-19T07:21:41.745Z",
+            "message": "NTP-time accuracy (standard deviation): 0.3 ms"
+          }
+        ]
+      },
+      {
+        "description": "databaseVersion",
+        "status": "OK",
+        "updated": "2021-03-15T15:21:41.683Z",
+        "_status": 1,
+        "errors": [
+          {
+            "type": "message",
+            "time": "2021-03-15T15:21:41.683Z",
+            "message": "core version: 1.16.0"
+          }
+        ]
+      },
+      {
+        "description": "blueprintCompability_tv2_afvd_studio",
+        "status": "OK",
+        "updated": "2021-03-15T15:21:41.702Z",
+        "_status": 1,
+        "errors": [
+          {
+            "type": "message",
+            "time": "2021-03-15T15:21:41.702Z",
+            "message": "Versions match"
+          }
+        ]
+      },
+      {
+        "description": "blueprintCompability_tv2_afvd_showstyle",
+        "status": "OK",
+        "updated": "2021-03-15T15:21:41.716Z",
+        "_status": 1,
+        "errors": [
+          {
+            "type": "message",
+            "time": "2021-03-15T15:21:41.716Z",
+            "message": "Versions match"
+          }
+        ]
+      },
+      {
+        "description": "blueprintCompability_tv2_system",
+        "status": "OK",
+        "updated": "2021-03-15T15:21:41.719Z",
+        "_status": 1,
+        "errors": [
+          {
+            "type": "message",
+            "time": "2021-03-15T15:21:41.719Z",
+            "message": "Versions match"
+          }
+        ]
+      },
+      {
+        "description": "blueprintCompability_tv2_offtube_showstyle",
+        "status": "OK",
+        "updated": "2021-03-15T15:21:41.723Z",
+        "_status": 1,
+        "errors": [
+          {
+            "type": "message",
+            "time": "2021-03-15T15:21:41.723Z",
+            "message": "Versions match"
+          }
+        ]
+      },
+      {
+        "description": "blueprintCompability_tv2_offtube_studio",
+        "status": "OK",
+        "updated": "2021-03-15T15:21:41.726Z",
+        "_status": 1,
+        "errors": [
+          {
+            "type": "message",
+            "time": "2021-03-15T15:21:41.726Z",
+            "message": "Versions match"
+          }
+        ]
+      },
+      {
+        "description": "External Message queue",
+        "status": "OK",
+        "updated": "2021-03-15T15:21:43.453Z",
+        "_status": 1,
+        "errors": []
+      },
+      {
+        "description": "blueprintConfig_tv2_afvd_studio_studio_studio0",
+        "status": "OK",
+        "updated": "2021-03-15T15:21:51.792Z",
+        "_status": 1,
+        "errors": [
+          {
+            "type": "message",
+            "time": "2021-03-15T15:21:51.792Z",
+            "message": "Config is valid"
+          }
+        ]
+      },
+      {
+        "description": "blueprintConfig_tv2_afvd_showstyle_showStyle_show0",
+        "status": "OK",
+        "updated": "2021-03-15T15:21:51.801Z",
+        "_status": 1,
+        "errors": [
+          {
+            "type": "message",
+            "time": "2021-03-15T15:21:51.801Z",
+            "message": "Config is valid"
+          }
+        ]
+      }
+    ],
+    "components": [
+      {
+        "name": "iNews Gateway",
+        "instanceId": "sofsrv01-od",
+        "status": "OK",
+        "updated": "2021-03-19T07:22:45.672Z",
+        "_status": 1,
+        "documentation": "",
+        "_internal": {
+          "statusCodeString": "GOOD",
+          "messages": [],
+          "versions": {
+            "_process": "1.1.0"
+          }
+        },
+        "checks": []
+      },
+      {
+        "name": "Playout gateway",
+        "instanceId": "sofsrv01-odPlayoutCoreParent",
+        "status": "OK",
+        "updated": "2021-03-19T07:22:35.316Z",
+        "_status": 1,
+        "documentation": "https://github.com/nrkno/tv-automation-playout-gateway",
+        "_internal": {
+          "statusCodeString": "GOOD",
+          "messages": [],
+          "versions": {
+            "_process": "1.14.0",
+            "atem-connection": "2.1.0",
+            "atem-state": "0.10.0",
+            "casparcg-connection": "5.1.0",
+            "casparcg-state": "2.1.0",
+            "superfly-timeline": "8.1.2",
+            "timeline-state-resolver": "5.2.0"
+          }
+        },
+        "checks": [
+          {
+            "description": "expectedVersion._process",
+            "status": "OK",
+            "updated": "2021-03-19T07:22:35.316Z",
+            "_status": 1,
+            "errors": []
+          }
+        ]
+      },
+      {
+        "name": "abstract0 (Abstract abstract0)",
+        "instanceId": "sofsrv01-odPlayoutabstract0",
+        "status": "OK",
+        "updated": "2021-03-19T07:22:35.293Z",
+        "_status": 1,
+        "documentation": "https://github.com/nrkno/tv-automation-playout-gateway",
+        "_internal": {
+          "statusCodeString": "GOOD",
+          "messages": [],
+          "versions": {}
+        },
+        "checks": [
+          {
+            "description": "expectedVersion._process",
+            "status": "OK",
+            "updated": "2021-03-19T07:22:35.293Z",
+            "_status": 1,
+            "errors": []
+          }
+        ]
+      },
+      {
+        "name": "sisyfos0 (Sisyfos sisyfos0)",
+        "instanceId": "sofsrv01-odPlayoutsisyfos0",
+        "status": "OK",
+        "updated": "2021-03-19T07:22:35.311Z",
+        "_status": 1,
+        "documentation": "https://github.com/nrkno/tv-automation-playout-gateway",
+        "_internal": {
+          "statusCodeString": "GOOD",
+          "messages": [],
+          "versions": {}
+        },
+        "checks": [
+          {
+            "description": "expectedVersion._process",
+            "status": "OK",
+            "updated": "2021-03-19T07:22:35.311Z",
+            "_status": 1,
+            "errors": []
+          }
+        ]
+      },
+      {
+        "name": "caspar01-launcher (HTTP-Watch caspar01-launcher)",
+        "instanceId": "sofsrv01-odPlayoutcaspar01-launcher",
+        "status": "OK",
+        "updated": "2021-03-19T07:22:35.314Z",
+        "_status": 1,
+        "documentation": "https://github.com/nrkno/tv-automation-playout-gateway",
+        "_internal": {
+          "statusCodeString": "GOOD",
+          "messages": [],
+          "versions": {}
+        },
+        "checks": [
+          {
+            "description": "expectedVersion._process",
+            "status": "OK",
+            "updated": "2021-03-19T07:22:35.314Z",
+            "_status": 1,
+            "errors": []
+          }
+        ]
+      },
+      {
+        "name": "http0 (HTTP-Send http0)",
+        "instanceId": "sofsrv01-odPlayouthttp0",
+        "status": "OK",
+        "updated": "2021-03-19T07:22:35.302Z",
+        "_status": 1,
+        "documentation": "https://github.com/nrkno/tv-automation-playout-gateway",
+        "_internal": {
+          "statusCodeString": "GOOD",
+          "messages": [],
+          "versions": {}
+        },
+        "checks": [
+          {
+            "description": "expectedVersion._process",
+            "status": "OK",
+            "updated": "2021-03-19T07:22:35.302Z",
+            "_status": 1,
+            "errors": []
+          }
+        ]
+      },
+      {
+        "name": "caspar02-launcher (HTTP-Watch caspar02-launcher)",
+        "instanceId": "sofsrv01-odPlayoutcaspar02-launcher",
+        "status": "OK",
+        "updated": "2021-03-19T07:22:35.314Z",
+        "_status": 1,
+        "documentation": "https://github.com/nrkno/tv-automation-playout-gateway",
+        "_internal": {
+          "statusCodeString": "GOOD",
+          "messages": [],
+          "versions": {}
+        },
+        "checks": [
+          {
+            "description": "expectedVersion._process",
+            "status": "OK",
+            "updated": "2021-03-19T07:22:35.314Z",
+            "_status": 1,
+            "errors": []
+          }
+        ]
+      },
+      {
+        "name": "caspar02 (CasparCG caspar02 10.201.76.12:5250)",
+        "instanceId": "sofsrv01-odPlayoutcaspar02",
+        "status": "OK",
+        "updated": "2021-03-19T07:22:35.318Z",
+        "_status": 1,
+        "documentation": "https://github.com/nrkno/tv-automation-playout-gateway",
+        "_internal": {
+          "statusCodeString": "GOOD",
+          "messages": [],
+          "versions": {}
+        },
+        "checks": [
+          {
+            "description": "expectedVersion._process",
+            "status": "OK",
+            "updated": "2021-03-19T07:22:35.318Z",
+            "_status": 1,
+            "errors": []
+          }
+        ]
+      },
+      {
+        "name": "caspar01 (CasparCG caspar01 10.201.76.11:5250)",
+        "instanceId": "sofsrv01-odPlayoutcaspar01",
+        "status": "OK",
+        "updated": "2021-03-19T07:22:35.304Z",
+        "_status": 1,
+        "documentation": "https://github.com/nrkno/tv-automation-playout-gateway",
+        "_internal": {
+          "statusCodeString": "GOOD",
+          "messages": [],
+          "versions": {}
+        },
+        "checks": [
+          {
+            "description": "expectedVersion._process",
+            "status": "OK",
+            "updated": "2021-03-19T07:22:35.304Z",
+            "_status": 1,
+            "errors": []
+          }
+        ]
+      },
+      {
+        "name": "atem0 (Atem atem0)",
+        "instanceId": "sofsrv01-odPlayoutatem0",
+        "status": "OK",
+        "updated": "2021-03-19T07:22:35.312Z",
+        "_status": 1,
+        "documentation": "https://github.com/nrkno/tv-automation-playout-gateway",
+        "_internal": {
+          "statusCodeString": "GOOD",
+          "messages": [],
+          "versions": {}
+        },
+        "checks": [
+          {
+            "description": "expectedVersion._process",
+            "status": "OK",
+            "updated": "2021-03-19T07:22:35.312Z",
+            "_status": 1,
+            "errors": []
+          }
+        ]
+      },
+      {
+        "name": "viz0 (VizMSE 10.222.47.133)",
+        "instanceId": "sofsrv01-odPlayoutviz0",
+        "status": "OK",
+        "updated": "2021-03-19T07:22:35.303Z",
+        "_status": 1,
+        "documentation": "https://github.com/nrkno/tv-automation-playout-gateway",
+        "_internal": {
+          "statusCodeString": "GOOD",
+          "messages": [],
+          "versions": {}
+        },
+        "checks": [
+          {
+            "description": "expectedVersion._process",
+            "status": "OK",
+            "updated": "2021-03-19T07:22:35.303Z",
+            "_status": 1,
+            "errors": []
+          }
+        ]
+      },
+      {
+        "name": "Media Manager",
+        "instanceId": "afvdmediamanager01MediaManager",
+        "status": "OK",
+        "updated": "2021-03-19T07:21:44.683Z",
+        "_status": 1,
+        "documentation": "https://github.com/nrkno/tv-automation-media-management",
+        "_internal": {
+          "statusCodeString": "GOOD",
+          "messages": [],
+          "versions": {
+            "_process": "1.4.0"
+          }
+        },
+        "checks": [
+          {
+            "description": "expectedVersion._process",
+            "status": "OK",
+            "updated": "2021-03-19T07:21:44.683Z",
+            "_status": 1,
+            "errors": []
+          }
+        ]
+      },
+      {
+        "name": "Media watcher in media manager",
+        "instanceId": "afvdmediamanager01Monitormediamonitor",
+        "status": "OK",
+        "updated": "2021-03-19T07:22:27.109Z",
+        "_status": 1,
+        "documentation": "https://github.com/nrkno/tv-automation-media-management",
+        "_internal": {
+          "statusCodeString": "GOOD",
+          "messages": [],
+          "versions": {
+            "_process": "1.4.0"
+          }
+        },
+        "checks": [
+          {
+            "description": "expectedVersion._process",
+            "status": "OK",
+            "updated": "2021-03-19T07:22:27.109Z",
+            "_status": 1,
+            "errors": []
+          }
+        ]
+      },
+      {
+        "name": "caspar01-scanner (HTTP-Watch caspar01-scanner)",
+        "instanceId": "sofsrv01-odPlayoutcaspar01-scanner",
+        "status": "OK",
+        "updated": "2021-03-19T07:22:35.306Z",
+        "_status": 1,
+        "documentation": "https://github.com/nrkno/tv-automation-playout-gateway",
+        "_internal": {
+          "statusCodeString": "GOOD",
+          "messages": [],
+          "versions": {}
+        },
+        "checks": [
+          {
+            "description": "expectedVersion._process",
+            "status": "OK",
+            "updated": "2021-03-19T07:22:35.306Z",
+            "_status": 1,
+            "errors": []
+          }
+        ]
+      }
+    ],
+    "statusMessage": ""
+  }

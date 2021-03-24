@@ -1,0 +1,26 @@
+- name: Select Sofier Server hosts from hosts file
+  hosts: aws
+  become: yes
+
+  tasks:
+    - name: pull Sofie Playout Gateway
+      docker_image:
+        name: olzzon/tv-automation-playout-gateway:{{ PLAYOUT_TAG }}
+      tags:
+        - sofieplayoutgw
+
+    - name: Run Playout Gateway
+      docker_container:
+        name: playout-gateway
+        image: olzzon/tv-automation-playout-gateway:{{ PLAYOUT_TAG }}
+        state: present
+        restart_policy: always
+        network_mode: "sofie"
+        env:
+          TZ: "{{ TIMEZONE }}"
+          CORE_HOST: "server-core"
+          CORE_PORT: 80
+          DEVICE_ID: "{{ HOSTNAME }}"
+          DEVICE_TOKEN: "{{ TOKEN }}"
+      tags:
+        - sofieplayoutgw

@@ -1,0 +1,5 @@
+---
+- import_playbook: playbooks/ubuntu/playbook.yml
+- import_playbook: playbooks/docker/playbook.yml
+- import_playbook: playbooks/filebeat/playbook.yml
+- import_playbook: playbooks/web-portal/playbook.yml

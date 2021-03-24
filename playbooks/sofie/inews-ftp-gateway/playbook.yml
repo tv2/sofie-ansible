@@ -1,0 +1,26 @@
+- name: Select Sofier Server hosts from hosts file
+  hosts: aws
+  become: yes
+
+  tasks:
+    - name: pull Sofie iNews Gateway
+      docker_image:
+        name: olzzon/tv2-inews-ftp-gateway:{{ INEWS_TAG }}
+      tags:
+        - sofieinewsgw
+
+    - name: Run iNews Gateway
+      docker_container:
+        name: inews-gateway
+        image: olzzon/tv2-inews-ftp-gateway:{{ INEWS_TAG }}
+        state: present
+        restart_policy: always
+        network_mode: "sofie"
+        env:
+          TZ: "{{ TIMEZONE }}"
+          CORE_HOST: "server-core"
+          CORE_PORT: 80
+          DEVICE_ID: "{{ HOSTNAME }}"
+          DEVICE_TOKEN: "{{ TOKEN }}"
+      tags:
+        - sofieinewsgw

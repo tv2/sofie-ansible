@@ -1,0 +1,24 @@
+- name: Select Sofier Server hosts from hosts file
+  hosts: aws
+  become: yes
+
+  tasks:
+    - name: pull Sofie Blueprints
+      docker_image:
+        source: pull
+        name: olzzon/tv2-sofie-blueprints-inews:{{ BLUEPRINTS_TAG }}
+      tags:
+        - sofieblueprints
+
+    - name: Run Sofie Blueprints
+      docker_container:
+        name: blueprint-build
+        image: olzzon/tv2-sofie-blueprints-inews:{{ BLUEPRINTS_TAG }}
+        state: started
+        network_mode: "sofie"
+        env:
+          SERVER: "{{ SOFIE_CORE }}"
+        volumes:
+          - "/opt/sofie-blueprints/nginx:/opt/blueprints/nginx"
+      tags:
+        - sofieblueprints

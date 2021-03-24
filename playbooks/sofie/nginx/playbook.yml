@@ -1,0 +1,43 @@
+- name: Select Sofier Server hosts from hosts file
+  hosts: aws
+  become: yes
+
+  tasks:
+    - name: Create sofie nginx Folder
+      file: 
+        path: /opt/sofie-nginx
+        owner: root 
+        group: root 
+        mode: 0755 
+        state: directory
+
+    - name: Copy nginx settings
+      ansible.builtin.template:
+        src: files/nginx.conf.j2
+        dest: /opt/sofie-nginx/nginx.conf
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: pull nginx
+      docker_image:
+        source: pull
+        name: nginx:latest
+      tags:
+        - sofienginx
+
+    - name: Run nginx
+      docker_container:
+        name: sofie-nginx
+        container_default_behavior: no_defaults
+        image: nginx:latest
+        state: started
+        restart_policy: always
+        network_mode: "sofie"
+        volumes:
+          - "/opt/sofie-nginx/nginx.conf:/etc/nginx/nginx.conf"
+        ports:
+          - "80:80"
+          - "443:443"
+      tags:
+        - sofienginx

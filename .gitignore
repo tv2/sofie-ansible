@@ -1,2 +1,5 @@
 hosts
+all
 playbook.retry
+
+.idea

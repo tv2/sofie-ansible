@@ -1,0 +1,64 @@
+# Ansible Playbook setting up Sofie Portal
+
+- name: Setup user web portal
+  hosts: all
+  become: yes
+  tasks:
+    # Install and configure Nginx
+    - name: Copy web portal files
+      copy:
+        src: "{{ item }}"
+        dest: /opt/web-portal/
+        owner: root
+        mode: 600
+      with_fileglob:
+        - ./files/*
+      tags:
+        - copyfiles
+
+    - name: Pull nginx docker image
+      docker_image:
+        source: pull
+        name: nginx:latest
+      tags:
+        - webportalnginx
+
+    - name: Sofie portal nginx proxy
+      docker_container:
+        container_default_behavior: no_defaults
+        restart: true
+        name: nginx
+        image: nginx:latest
+        ports:
+          - "8080:8080"
+        volumes:
+          - "/opt/web-portal/nginx.conf:/etc/nginx/nginx.conf"
+        restart_policy: always
+      tags:
+        - webportalnginx
+
+    - name: Pull portal app image
+      docker_image:
+        source: pull
+        name: olzzon/tv2-sofie-portal:{{ SOFIE_PORTAL_TAG }} 
+      tags:
+        - webportal
+
+    - name: Make sure webportal is not running
+      docker_container:
+        name: sofie-portal
+        state: absent
+
+    - name: Sofie portal App
+      docker_container:
+        container_default_behavior: no_defaults
+        restart: true
+        name: sofie-portal
+        image: olzzon/tv2-sofie-portal:{{ SOFIE_PORTAL_TAG }}
+        ports:
+          - "80:3000/tcp"
+        volumes:
+          - "/opt/web-portal/settings.json:/opt/tv2-sofie-portal/build/storage/settings.json"
+        restart_policy: always
+      tags:
+        - webportal

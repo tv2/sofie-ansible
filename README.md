@@ -1,6 +1,11 @@
 # tv2-sofie-ansible
 Ansible playbook for deploying Sofie Systems
 
+
+### Prerequisites
+
+Linux server - have the following installed .... WIP
+
 ### Install ansible:
 on ubuntu:
 ```
@@ -38,3 +43,5 @@ yarn
 Deploy the blueprints from the deployment scriptmenu. (later in this README.md)
 
 ## Future steps:
+
+Unqiue ID - per installation -- Device id ..

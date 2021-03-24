@@ -1,0 +1,11 @@
+{
+	"public": {
+		"autoRewindLeavingSegment": true,
+		"allowUnsyncedSegments": true,
+		"allowGrabbingTimeline": true,
+		"defaultDisplayDuration": 4000,
+		"allowRundownResetOnAir": true,
+		"keyboardMapLayout": "STANDARD_102",
+		"followOnAirSegmentsHistory": 1
+	}
+}

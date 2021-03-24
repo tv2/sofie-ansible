@@ -1,0 +1,33 @@
+# Ansible Playbook setting up Sofie Portal
+
+- name: Select Sofier Server hosts from hosts file
+  hosts: aws
+  become: yes
+
+  tasks:
+    - name: Pull sisyfos image
+      docker_image:
+        source: pull
+        name: olzzon/tv2-sofie-portal:{{ SISYFOS_TAG }}
+      tags:
+        - sisyfos
+
+    - name: Start sisyfos docker container
+      docker_container:
+        container_default_behavior: no_defaults
+        restart: true
+        name: sisyfos
+        image: olzzon/sisyfos-audio-controller:{{ SISYFOS_TAG }}
+        ports:
+          - "1176:1176"
+          - "5255:5255"
+          - "5255:5255/udp"
+        volumes:
+          - "/opt/sofie-portal/settings.json:/opt/tv2-sofie-portal/build/storage/settings.json"
+        restart_policy: always
+        env:
+          TZ: "{{ SISYFOS_ENV_TIMEZONE }}"
+          loggerIp: "{{ SISYFOS_ENV_ELASTIC_IP }}"
+          loggerPort: "{{ SISYFOS_ENV_ELASTIC_PORT }}"
+      tags:
+        - sisyfos

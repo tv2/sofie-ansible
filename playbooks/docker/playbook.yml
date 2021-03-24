@@ -1,0 +1,56 @@
+# Ansible Playbook setting up Sofie Portal
+
+- name: Setup Docker
+  hosts: aws
+  become: yes
+
+  tasks:
+    # Install Docker-CE and requirements:
+    - name: Install required system packages
+      apt:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
+      loop: [
+          'apt-transport-https',
+          'ca-certificates',
+          'curl',
+          'software-properties-common',
+          'python3-pip',
+          'virtualenv',
+          'python3-setuptools'
+      ]
+      tags:
+        - docker
+  
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+      tags:
+        - docker
+  
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu bionic stable
+        state: present
+      tags:
+        - docker
+  
+    - name: Update apt and install docker-ce
+      apt:
+        update_cache: yes
+        name: docker-ce
+        state: latest
+      tags:
+        - docker
+  
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+      tags:
+        - docker
+
+    - name: Create a sofie docker network
+      docker_network:
+        name: sofie
