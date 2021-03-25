@@ -51,6 +51,9 @@
     - name: Install Docker Module for Python
       pip:
         name: docker
+      environment:
+        http_proxy: "{{ WEB_PROXY }}"
+        https_proxy: "{{ WEB_PROXY }}"
       tags:
         - docker
 
