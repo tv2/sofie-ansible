@@ -2,9 +2,18 @@
 
 - name: Setup ubuntu core
   become: yes
-  hosts: aws
+  hosts: all
 
   tasks:
+    # Setup apt proxy settings
+    - name: Copy nginx settings
+      ansible.builtin.template:
+        src: files/proxy.conf.j2
+        dest: /etc/apt/apt.conf.d/proxy.conf
+        owner: root
+        group: root
+        mode: 0644
+
     # Install apt:
     - name: Install aptitude using apt
       apt:
