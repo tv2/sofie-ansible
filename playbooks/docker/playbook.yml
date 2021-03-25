@@ -27,6 +27,9 @@
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
         state: present
+      environment:
+       http_proxy: {{ WEB_PROXY }}
+       https_proxy: {{ WEB_PROXY }}
       tags:
         - docker
   
