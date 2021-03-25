@@ -20,6 +20,9 @@
       docker_image:
         source: pull
         name: nginx:latest
+      environment:
+        http_proxy: "{{ WEB_PROXY }}"
+        https_proxy: "{{ WEB_PROXY }}"
       tags:
         - webportalnginx
 
@@ -41,6 +44,9 @@
       docker_image:
         source: pull
         name: olzzon/tv2-sofie-portal:{{ SOFIE_PORTAL_TAG }} 
+      environment:
+        http_proxy: "{{ WEB_PROXY }}"
+        https_proxy: "{{ WEB_PROXY }}"
       tags:
         - webportal
 
