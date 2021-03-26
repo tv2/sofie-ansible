@@ -22,6 +22,14 @@
       ]
       tags:
         - docker
+    
+    - name: Creates directory
+      file:
+        path: ~/.docker
+        state: directory
+        owner: root
+        group: root
+        mode: 0644
 
     - name: Copy .docker/config.json settings
       ansible.builtin.template:
