@@ -20,15 +20,11 @@
       docker_image:
         source: pull
         name: nginx:latest
-      environment:
-        http_proxy: "{{ WEB_PROXY }}"
-        https_proxy: "{{ WEB_PROXY }}"
       tags:
         - webportalnginx
 
     - name: Sofie portal nginx proxy
       docker_container:
-        container_default_behavior: no_defaults
         restart: true
         name: nginx
         image: nginx:latest
@@ -44,9 +40,6 @@
       docker_image:
         source: pull
         name: olzzon/tv2-sofie-portal:{{ SOFIE_PORTAL_TAG }} 
-      environment:
-        http_proxy: "{{ WEB_PROXY }}"
-        https_proxy: "{{ WEB_PROXY }}"
       tags:
         - webportal
 
@@ -57,7 +50,6 @@
 
     - name: Sofie portal App
       docker_container:
-        container_default_behavior: no_defaults
         restart: true
         name: sofie-portal
         image: olzzon/tv2-sofie-portal:{{ SOFIE_PORTAL_TAG }}
