@@ -23,7 +23,7 @@
       tags:
         - docker
     
-    - name: Creates directory
+    - name: Creates .docker directory
       file:
         path: ~/.docker
         state: directory
@@ -38,7 +38,23 @@
         owner: root
         group: root
         mode: 0644
+    
+    - name: Creates etc/systemd/system/docker.service.d directory
+      file:
+        path: /etc/systemd/system/docker.service.d 
+        state: directory
+        owner: root
+        group: root
+        mode: 0644
   
+    - name: Copy /etc/systemd/system/docker.service.d/http-proxy.conf settings
+      ansible.builtin.template:
+        src: files/http-proxy.conf.j2
+        dest: /etc/systemd/system/docker.service.d/http-proxy.conf
+        owner: root
+        group: root
+        mode: 0644
+      
     - name: Add Docker GPG apt Key
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
@@ -76,3 +92,9 @@
     - name: Create a sofie docker network
       docker_network:
         name: sofie
+
+    - name: Restart docker service
+      ansible.builtin.systemd:
+        name: docker.service
+        state: restarted
+        enabled: yes
