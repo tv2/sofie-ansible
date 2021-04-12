@@ -3,8 +3,8 @@
 - name: Setup user web portal
   hosts: all
   become: yes
-  vars_files:
-    - ./vars.yml
+  # vars_files:
+  #   - ./vars.yml
   tasks:
     
     # - name: Copy nginx settings
