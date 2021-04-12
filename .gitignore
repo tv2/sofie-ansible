@@ -3,3 +3,6 @@ all
 playbook.retry
 
 .idea
+vars.yml
+
+.DS_Store

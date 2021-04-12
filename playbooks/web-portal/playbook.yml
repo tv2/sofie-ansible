@@ -3,18 +3,25 @@
 - name: Setup user web portal
   hosts: all
   become: yes
+  vars_files:
+    - ./vars.yml
   tasks:
-    # Install and configure Nginx
-    - name: Copy web portal files
-      copy:
-        src: "{{ item }}"
-        dest: /opt/web-portal/
+    
+    # - name: Copy nginx settings
+    #   ansible.builtin.template:
+    #     src: files/nginx.conf.j2
+    #     dest: /opt/web-portal/nginx.conf
+    #     owner: root
+    #     group: root
+    #     mode: 0644
+
+    - name: Copy webportal settings
+      ansible.builtin.template:
+        src: files/settings.json.j2
+        dest: /opt/web-portal/settings.json
         owner: root
-        mode: 600
-      with_fileglob:
-        - ./files/*
-      tags:
-        - copyfiles
+        group: root
+        mode: 0644
 
     - name: Pull nginx docker image
       docker_image:
@@ -33,6 +40,7 @@
         volumes:
           - "/opt/web-portal/nginx.conf:/etc/nginx/nginx.conf"
         restart_policy: always
+        network_mode: "webportal"
       tags:
         - webportalnginx
 
@@ -58,5 +66,6 @@
         volumes:
           - "/opt/web-portal/settings.json:/opt/tv2-sofie-portal/build/storage/settings.json"
         restart_policy: always
+        network_mode: "webportal"
       tags:
         - webportal

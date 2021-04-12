@@ -1,0 +1,22 @@
+{
+    "users": [
+        {% for user in webportal_users %}
+        {
+            "id": "{{ webportal_users.id }}",
+            "name": "{{ webportal_users.name }}",
+            "accessRights": "{{ webportal_users.accessRights }}",
+        }
+        {% endfor %}
+    ],
+        {% for webpage in webportal_webpages %}
+        {
+            "id": "{{webportal_webpages.id}}",
+            "name": "{{webportal_webpages.name}}",
+            "description": "{{webportal_webpages.description}}",
+            "hostname": "{{webportal_webpages.hostname}}"
+        }
+        {% endfor %}
+
+    ]
+
+}

@@ -26,28 +26,15 @@ http {
                 listen 8080;
                 server_name _;
 
-
-                for each x ->
-                        x
-
-                location /x {
+                {% for webpage in webportal_webpages %}
+                location /webpage{{webportal_webpages.id}} {
                         add_header Access-Control-Allow-Origin *;
                         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
                         proxy_set_header X-Forwarded-Proto $scheme;
                         proxy_set_header Upgrade $http_upgrade;
                         proxy_set_header Connection "upgrade";
-                        proxy_pass http://www.x.com;
+                        proxy_pass {{webportal_webpages.source_destination}};
                 }
-                
-                location /webpage2 {
-                        add_header Access-Control-Allow-Origin *;
-                        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                        proxy_set_header X-Forwarded-Proto $scheme;
-                        proxy_set_header Upgrade $http_upgrade;
-                        proxy_set_header Connection "upgrade";
-                        proxy_pass http://test.com/;
-                }
-                
-                
+                {% endfor %}
         }
 }
