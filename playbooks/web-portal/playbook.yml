@@ -6,6 +6,10 @@
   # vars_files:
   #   - ./vars.yml
   tasks:
+
+    - name: Create a webportal docker network
+      docker_network:
+        name: webportal
     
     # - name: Copy nginx settings
     #   ansible.builtin.template:
