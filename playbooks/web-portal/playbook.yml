@@ -40,7 +40,7 @@
         name: nginx
         image: nginx:latest
         ports:
-          - "8080:8080"
+          - "80:80"
         volumes:
           - "/opt/web-portal/nginx.conf:/etc/nginx/nginx.conf"
         restart_policy: always
@@ -66,7 +66,7 @@
         name: sofie-portal
         image: olzzon/tv2-sofie-portal:{{ SOFIE_PORTAL_TAG }}
         ports:
-          - "80:3000/tcp"
+          - "3000/tcp"
         volumes:
           - "/opt/web-portal/settings.json:/opt/tv2-sofie-portal/build/storage/settings.json"
         restart_policy: always
