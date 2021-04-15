@@ -7,7 +7,7 @@
             "description": "{{machine.description}}",
             "hostname": "{{machine.hostname}}"
         }
-        {%if not forloop.last%},{%endif%}
+        {%if not loop.last%},{%endif%}
         {% endfor %}
     ]
 
