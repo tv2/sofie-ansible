@@ -5,7 +5,7 @@
             "id": "{{machine.id}}",
             "label": "{{machine.label}}",
             "description": "{{machine.description}}",
-            "hostname": "{{machine.hostname}}"
+            "hostname": "{{machine.hostname}}.{{sofie_portal_dns}}.{{tv2.local}}"
         }
         {%if not loop.last%},{%endif%}
         {% endfor %}
