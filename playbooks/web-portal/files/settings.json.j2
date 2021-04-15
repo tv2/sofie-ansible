@@ -5,8 +5,9 @@
             "id": "{{machine.id}}",
             "label": "{{machine.label}}",
             "description": "{{machine.description}}",
-            "hostname": "{{machine.hostname}}",
+            "hostname": "{{machine.hostname}}"
         }
+        {%if not forloop.last%},{%endif%}
         {% endfor %}
     ]
 
