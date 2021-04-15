@@ -1,8 +1,16 @@
-- name: Select Sofier Server hosts from hosts file
-  hosts: aws
+- name: Setup sofie blueprints
+  hosts: all
   become: yes
 
   tasks:
+    - name: Creates /opt/sofie-blueprints/nginx
+      file:
+        path: /opt/sofie-blueprints/nginx
+        state: directory
+        owner: root
+        group: root
+        mode: 0644
+
     - name: pull Sofie Blueprints
       docker_image:
         source: pull
@@ -20,5 +28,6 @@
           SERVER: "{{ SOFIE_CORE }}"
         volumes:
           - "/opt/sofie-blueprints/nginx:/opt/blueprints/nginx"
+        container_default_behavior: no_defaults
       tags:
         - sofieblueprints

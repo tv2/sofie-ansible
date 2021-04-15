@@ -1,6 +1,11 @@
 ---
-- import_playbook: playbooks/ubuntu/playbook.yml
-- import_playbook: playbooks/docker/playbook.yml
-- import_playbook: playbooks/filebeat/playbook.yml
-- import_playbook: playbooks/sofie/blueprints/playbook.yml
-- import_playbook: playbooks/sofie/nginx/playbook.yml
+ - import_playbook: playbooks/ubuntu/playbook.yml
+ - import_playbook: playbooks/docker/playbook.yml
+ - import_playbook: playbooks/filebeat/playbook.yml
+ - import_playbook: playbooks/sofie/mongodb/playbook.yml
+ - import_playbook: playbooks/sofie/server-core/playbook.yml
+ - import_playbook: playbooks/sofie/blueprints/playbook.yml
+ - import_playbook: playbooks/sofie/inews-ftp-gateway/playbook.yml
+ - import_playbook: playbooks/sofie/playout-gateway/playbook.yml
+ - import_playbook: playbooks/sofie/sisyfos/playbook.yml
+ - import_playbook: playbooks/sofie/nginx/playbook.yml

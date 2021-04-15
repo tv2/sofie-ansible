@@ -1,5 +1,5 @@
-- name: Select Sofier Server hosts from hosts file
-  hosts: aws
+- name: Setup Sofie nginx server
+  hosts: all
   become: yes
 
   tasks:

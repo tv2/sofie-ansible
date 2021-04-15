@@ -1,11 +1,23 @@
 - name: Select Sofier Server hosts from hosts file
-  hosts: aws
+  hosts: all
   become: yes
 
   tasks:
+    - name: Copy core-settings 
+      copy:
+        src: "{{ item }}"
+        dest: /opt
+        owner: root
+        mode: 600
+      with_fileglob:
+        - ./files/*
+      tags:
+        - copycoresettings
+    
     - name: pull Sofie Core
       docker_image:
         name: olzzon/tv-automation-server-core:{{ CORE_TAG }}
+        source: pull
       tags:
         - sofiecore
 
@@ -13,7 +25,7 @@
       docker_container:
         name: server-core
         image: olzzon/tv-automation-server-core:{{ CORE_TAG }}
-        state: present
+        state: started
         ports:
           - "127.0.0.1:8080:80/tcp"
         volumes:
@@ -25,20 +37,10 @@
           TZ: "{{ TIMEZONE }}"
           MONGO_OPLOG_URL: "mongodb://mongo:27017/local"
           MONGO_URL: "mongodb://mongo:27017/sofie"
-          ROOT_URL: "http://{{ HOSTNAME }}"
-          PORT: 80
-          HTTP_FORWARDED_COUNT: 1
+          ROOT_URL: "http://{{ inventory_hostname }}"
+          PORT: "80"
+          HTTP_FORWARDED_COUNT: "1"
           NTP_SERVERS: "{{NTP_SERVERS}}" 
+        container_default_behavior: no_defaults
       tags:
         - sofiecore
-
-    - name: Copy core-settings 
-      copy:
-        src: "{{ item }}"
-        dest: /opt
-        owner: root
-        mode: 600
-      with_fileglob:
-        - ./files/*
-      tags:
-        - copycoresettings

@@ -30,6 +30,7 @@
         owner: root
         group: root
         mode: 0644
+      when: "PROXY_ENABLED"
 
     - name: Copy .docker/config.json settings
       ansible.builtin.template:
@@ -38,6 +39,7 @@
         owner: root
         group: root
         mode: 0644
+      when: "PROXY_ENABLED"
     
     - name: Creates etc/systemd/system/docker.service.d directory
       file:
@@ -46,6 +48,7 @@
         owner: root
         group: root
         mode: 0644
+      when: "PROXY_ENABLED"
   
     - name: Copy /etc/systemd/system/docker.service.d/http-proxy.conf settings
       ansible.builtin.template:
@@ -54,8 +57,9 @@
         owner: root
         group: root
         mode: 0644
+      when: "PROXY_ENABLED"
       
-    - name: Add Docker GPG apt Key
+    - name: Add Docker GPG apt Key with web proxy
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
         state: present
@@ -64,6 +68,15 @@
        https_proxy: "{{ WEB_PROXY }}"
       tags:
         - docker
+      when: "PROXY_ENABLED"
+    
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+      tags:
+        - docker
+      when: "PROXY_ENABLED"
   
     - name: Add Docker Repository
       apt_repository:
@@ -80,7 +93,7 @@
       tags:
         - docker
   
-    - name: Install Docker Module for Python
+    - name: Install Docker Module for Python with webproxy
       pip:
         name: docker
       environment:
@@ -88,6 +101,14 @@
         https_proxy: "{{ WEB_PROXY }}"
       tags:
         - docker
+      when: "PROXY_ENABLED"
+
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+      tags:
+        - docker
+      when: "PROXY_ENABLED"
 
     - name: Create a sofie docker network
       docker_network:

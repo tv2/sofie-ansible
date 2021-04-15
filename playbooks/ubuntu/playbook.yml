@@ -13,6 +13,7 @@
         owner: root
         group: root
         mode: 0644
+      when: "PROXY_ENABLED"
 
     # Install apt:
     - name: Install aptitude using apt

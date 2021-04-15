@@ -1,10 +1,27 @@
-- name: Select Sofier Server hosts from hosts file
-  hosts: aws
+- name: Setup sofie mongodb database
+  hosts: all
   become: yes
 
   tasks:
+    - name: Creates /opt/coredisk
+      file:
+        path: /opt/coredisk
+        state: directory
+        owner: root
+        group: root
+        mode: 0644
+  
+    - name: Creates /opt/mongo/backup
+      file:
+        path: /opt/mongo/backup
+        state: directory
+        owner: root
+        group: root
+        mode: 0644
+
     - name: Pull MongoDb
       docker_image:
+        source: pull
         name: mongo:{{ MONGO_TAG }}
       tags:
         - sofiemongo
@@ -12,8 +29,9 @@
     - name: Run MongoDB
       docker_container:
         name: mongo
+        hostname: mongodb
         image: mongo:{{ MONGO_TAG }}
-        state: present
+        state: started
         ports:
           - "0.0.0.0:27017:27017"
         volumes:
@@ -22,5 +40,7 @@
           - "/etc/timezone:/etc/timezone:ro"
         restart_policy: always
         network_mode: "sofie"
+        command: "mongod --replSet rs0"
+        container_default_behavior: compatibility
       tags:
         - sofiemongo

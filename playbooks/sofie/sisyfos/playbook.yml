@@ -1,14 +1,22 @@
-# Ansible Playbook setting up Sofie Portal
+# Ansible playbook for setting up sisyfos audio controller
 
-- name: Select Sofier Server hosts from hosts file
-  hosts: aws
+- name: Setup sisyfos audio controller
+  hosts: all
   become: yes
 
   tasks:
+    - name: Creates /opt/sisyfos-audio-controller
+      file:
+        path: /opt/sisyfos-audio-controller
+        state: directory
+        owner: root
+        group: root
+        mode: 0644
+
     - name: Pull sisyfos image
       docker_image:
         source: pull
-        name: olzzon/tv2-sofie-portal:{{ SISYFOS_TAG }}
+        name: olzzon/sisyfos-audio-controller:{{ SISYFOS_TAG }}
       tags:
         - sisyfos
 
@@ -23,11 +31,11 @@
           - "5255:5255"
           - "5255:5255/udp"
         volumes:
-          - "/opt/sofie-portal/settings.json:/opt/tv2-sofie-portal/build/storage/settings.json"
+          - "/opt/sisyfos-audio-controller:/opt/sisyfos-audio-controller/storage"
         restart_policy: always
         env:
-          TZ: "{{ SISYFOS_ENV_TIMEZONE }}"
-          loggerIp: "{{ SISYFOS_ENV_ELASTIC_IP }}"
-          loggerPort: "{{ SISYFOS_ENV_ELASTIC_PORT }}"
+          TZ: "{{ TIMEZONE }}"
+          loggerIp: "{{ ELASTIC_IP }}"
+          loggerPort: "{{ ELASTIC_PORT }}"
       tags:
         - sisyfos
