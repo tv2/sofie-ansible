@@ -37,7 +37,7 @@ http {
             }
         }
 
-        {% for machine in webportal.vars.machines %}
+        {% for machine in machines %}
         server {
             listen 80;
             listen [::]:80;
