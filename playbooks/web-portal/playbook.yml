@@ -25,6 +25,14 @@
         group: root
         mode: 0644
 
+    - name: /opt/web-portal/backup
+      file:
+        path: /opt/web-portal/backup
+        state: directory
+        owner: root
+        group: root
+        mode: 0644
+
     - name: Pull nginx docker image
       docker_image:
         source: pull
@@ -67,7 +75,7 @@
           - "3000/tcp"
         volumes:
           - "/opt/web-portal/settings.json:/opt/tv2-sofie-portal/build/storage/settings.json"
-          - "/opt/web-portal/users.json:/opt/tv2-sofie-portal/build/storage/users.json"
+          - "/opt/web-portal/backup:/opt/tv2-sofie-portal/build/storage"
         restart_policy: always
         network_mode: "webportal"
       tags:
