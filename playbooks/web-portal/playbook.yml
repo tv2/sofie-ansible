@@ -75,7 +75,7 @@
           - "3000/tcp"
         volumes:
           - "/opt/web-portal/settings.json:/opt/tv2-sofie-portal/build/storage/settings.json"
-          - "/opt/web-portal/backup:/opt/tv2-sofie-portal/build/storage"
+          - "/opt/web-portal/backup:/opt/tv2-sofie-portal/build/storage/users.json"
         restart_policy: always
         network_mode: "webportal"
       tags:
