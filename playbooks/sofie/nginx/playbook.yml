@@ -22,7 +22,7 @@
     - name: pull nginx
       docker_image:
         source: pull
-        name: nginx:latest
+        name: nginx:{{NGINX_TAG}}
       tags:
         - sofienginx
 
@@ -30,7 +30,7 @@
       docker_container:
         name: sofie-nginx
         container_default_behavior: no_defaults
-        image: nginx:latest
+        image: nginx:{{NGINX_TAG}}
         state: started
         restart_policy: always
         network_mode: "sofie"

@@ -6,14 +6,14 @@
     - name: pull Sofie Playout Gateway
       docker_image:
         source: pull
-        name: olzzon/tv-automation-playout-gateway:{{ PLAYOUT_TAG }}
+        name: "{{SOFIE_PLAYOUT_IMAGE}}:{{ SOFIE_PLAYOUT_TAG }}"
       tags:
         - sofieplayoutgw
 
     - name: Run Playout Gateway
       docker_container:
         name: playout-gateway
-        image: olzzon/tv-automation-playout-gateway:{{ PLAYOUT_TAG }}
+        image: "{{SOFIE_PLAYOUT_IMAGE}}:{{ SOFIE_PLAYOUT_TAG }}"
         state: started
         restart_policy: always
         network_mode: "sofie"

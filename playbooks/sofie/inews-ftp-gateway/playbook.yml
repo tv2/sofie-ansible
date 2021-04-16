@@ -6,14 +6,14 @@
     - name: pull Sofie iNews Gateway
       docker_image:
         source: pull
-        name: olzzon/tv2-inews-ftp-gateway:{{ INEWS_TAG }}
+        name: "{{SOFIE_INEWS_IMAGE}}:{{ SOFIE_INEWS_TAG }}"
       tags:
         - sofieinewsgw
 
     - name: Run iNews Gateway
       docker_container:
         name: inews-gateway
-        image: olzzon/tv2-inews-ftp-gateway:{{ INEWS_TAG }}
+        image: "{{SOFIE_INEWS_IMAGE}}:{{ SOFIE_INEWS_TAG }}"
         state: started
         restart_policy: always
         network_mode: "sofie"

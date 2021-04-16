@@ -14,14 +14,14 @@
     - name: pull Sofie Blueprints
       docker_image:
         source: pull
-        name: olzzon/tv2-sofie-blueprints-inews:{{ BLUEPRINTS_TAG }}
+        name: "{{SOFIE_BLUEPRINTS_IMAGE}}:{{ SOFIE_BLUEPRINTS_TAG }}"
       tags:
         - sofieblueprints
 
     - name: Run Sofie Blueprints
       docker_container:
         name: blueprint-build
-        image: olzzon/tv2-sofie-blueprints-inews:{{ BLUEPRINTS_TAG }}
+        image: "{{SOFIE_BLUEPRINTS_IMAGE}}:{{ SOFIE_BLUEPRINTS_TAG }}"
         state: started
         network_mode: "sofie"
         env:

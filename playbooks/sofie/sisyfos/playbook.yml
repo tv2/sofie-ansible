@@ -16,7 +16,7 @@
     - name: Pull sisyfos image
       docker_image:
         source: pull
-        name: olzzon/sisyfos-audio-controller:{{ SISYFOS_TAG }}
+        name: "{{SISYFOS_IMAGE}}:{{ SISYFOS_TAG }}"
       tags:
         - sisyfos
 
@@ -25,7 +25,7 @@
         container_default_behavior: no_defaults
         restart: true
         name: sisyfos
-        image: olzzon/sisyfos-audio-controller:{{ SISYFOS_TAG }}
+        image: "{{SISYFOS_IMAGE}}:{{ SISYFOS_TAG }}"
         ports:
           - "1176:1176"
           - "5255:5255"

@@ -16,7 +16,7 @@
     
     - name: pull Sofie Core
       docker_image:
-        name: olzzon/tv-automation-server-core:{{ CORE_TAG }}
+        name: "{{SOFIE_CORE_IMAGE}}:{{ SOFIE_CORE_TAG }}"
         source: pull
       tags:
         - sofiecore
@@ -24,7 +24,7 @@
     - name: Run Core
       docker_container:
         name: server-core
-        image: olzzon/tv-automation-server-core:{{ CORE_TAG }}
+        image: "{{SOFIE_CORE_IMAGE}}:{{ SOFIE_CORE_TAG }}"
         state: started
         ports:
           - "127.0.0.1:8080:80/tcp"

@@ -49,7 +49,7 @@
     - name: Pull portal app image
       docker_image:
         source: pull
-        name: olzzon/tv2-sofie-portal:{{ SOFIE_PORTAL_TAG }} 
+        name: "{{SOFIE_PORTAL_IMAGE}}:{{ SOFIE_PORTAL_TAG }}" 
       tags:
         - webportal
 
@@ -62,7 +62,7 @@
       docker_container:
         restart: true
         name: sofie-portal
-        image: olzzon/tv2-sofie-portal:{{ SOFIE_PORTAL_TAG }}
+        image: "{{SOFIE_PORTAL_IMAGE}}:{{ SOFIE_PORTAL_TAG }}"
         ports:
           - "3000/tcp"
         volumes:
