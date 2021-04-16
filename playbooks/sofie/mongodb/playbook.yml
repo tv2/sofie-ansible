@@ -18,6 +18,14 @@
         owner: root
         group: root
         mode: 0644
+    
+    - name: Copy mongodb conf
+      ansible.builtin.template:
+        src: files/mongod.conf.j2
+        dest: /opt/mongo/conf/mongod.conf
+        owner: root
+        group: root
+        mode: 0644
 
     - name: Pull MongoDb
       docker_image:
@@ -38,6 +46,7 @@
           - "/opt/coredisk:/opt/coredisk"
           - "/opt/mongo/backup:/data/backup"
           - "/etc/timezone:/etc/timezone:ro"
+          - "/opt/mongo/conf/mongod.conf:/etc/mongod.conf"
         restart_policy: always
         network_mode: "sofie"
         command: "mongod --replSet rs0"
