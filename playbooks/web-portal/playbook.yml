@@ -25,10 +25,10 @@
         group: root
         mode: 0644
 
-    - name: /opt/web-portal/backup
-      file:
-        path: /opt/web-portal/backup
-        state: directory
+    - name: Copy webportal users
+      ansible.builtin.template:
+        src: files/users.json.j2
+        dest: /opt/web-portal/users.json
         owner: root
         group: root
         mode: 0644
@@ -75,7 +75,7 @@
           - "3000/tcp"
         volumes:
           - "/opt/web-portal/settings.json:/opt/tv2-sofie-portal/build/storage/settings.json"
-          - "/opt/web-portal/backup:/opt/tv2-sofie-portal/build/storage/users.json"
+          - "/opt/web-portal/users.json:/opt/tv2-sofie-portal/build/storage/users.json"
         restart_policy: always
         network_mode: "webportal"
       tags:
