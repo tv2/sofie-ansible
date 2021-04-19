@@ -1,2 +1,9 @@
 hosts
+all
 playbook.retry
+
+.idea
+
+.DS_Store
+
+inventories/*

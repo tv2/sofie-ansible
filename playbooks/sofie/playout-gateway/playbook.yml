@@ -1,0 +1,28 @@
+- name: Select Sofier Server hosts from hosts file
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: pull Sofie Playout Gateway
+      docker_image:
+        source: pull
+        name: "{{SOFIE_PLAYOUT_IMAGE}}:{{ SOFIE_PLAYOUT_TAG }}"
+      tags:
+        - sofieplayoutgw
+
+    - name: Run Playout Gateway
+      docker_container:
+        name: playout-gateway
+        image: "{{SOFIE_PLAYOUT_IMAGE}}:{{ SOFIE_PLAYOUT_TAG }}"
+        state: started
+        restart_policy: always
+        network_mode: "sofie"
+        env:
+          TZ: "{{ TIMEZONE }}"
+          CORE_HOST: "server-core"
+          CORE_PORT: "80"
+          DEVICE_ID: "{{ inventory_hostname }}"
+          DEVICE_TOKEN: "{{ DEVICE_TOKEN }}"
+        container_default_behavior: no_defaults
+      tags:
+        - sofieplayoutgw

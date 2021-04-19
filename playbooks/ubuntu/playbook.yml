@@ -1,0 +1,24 @@
+# Ansible Playbook setting up Sofie Portal
+
+- name: Setup ubuntu core
+  become: yes
+  hosts: all
+
+  tasks:
+    # Setup apt proxy settings
+    - name: Copy apt proxy settings
+      ansible.builtin.template:
+        src: files/proxy.conf.j2
+        dest: /etc/apt/apt.conf.d/proxy.conf
+        owner: root
+        group: root
+        mode: 0644
+      when: "PROXY_ENABLED"
+
+    # Install apt:
+    - name: Install aptitude using apt
+      apt:
+        name: aptitude
+        state: latest
+        update_cache: yes
+        force_apt_get: yes

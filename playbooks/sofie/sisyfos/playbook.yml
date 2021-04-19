@@ -1,0 +1,41 @@
+# Ansible playbook for setting up sisyfos audio controller
+
+- name: Setup sisyfos audio controller
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Creates /opt/sisyfos-audio-controller
+      file:
+        path: /opt/sisyfos-audio-controller
+        state: directory
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Pull sisyfos image
+      docker_image:
+        source: pull
+        name: "{{SISYFOS_IMAGE}}:{{ SISYFOS_TAG }}"
+      tags:
+        - sisyfos
+
+    - name: Start sisyfos docker container
+      docker_container:
+        container_default_behavior: no_defaults
+        restart: true
+        name: sisyfos
+        image: "{{SISYFOS_IMAGE}}:{{ SISYFOS_TAG }}"
+        ports:
+          - "1176:1176"
+          - "5255:5255"
+          - "5255:5255/udp"
+        volumes:
+          - "/opt/sisyfos-audio-controller:/opt/sisyfos-audio-controller/storage"
+        restart_policy: always
+        env:
+          TZ: "{{ TIMEZONE }}"
+          loggerIp: "{{ ELASTIC_IP }}"
+          loggerPort: "{{ ELASTIC_PORT }}"
+      tags:
+        - sisyfos

@@ -1,0 +1,121 @@
+# Ansible Playbook setting up Sofie Portal
+
+- name: Setup Docker
+  hosts: all
+  become: yes
+
+  tasks:
+    # Install Docker-CE and requirements:
+    - name: Install required system packages
+      apt:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
+      loop: [
+          'apt-transport-https',
+          'ca-certificates',
+          'curl',
+          'software-properties-common',
+          'python3-pip',
+          'virtualenv',
+          'python3-setuptools'
+      ]
+      tags:
+        - docker
+    
+    - name: Creates .docker directory
+      file:
+        path: ~/.docker
+        state: directory
+        owner: root
+        group: root
+        mode: 0644
+      when: PROXY_ENABLED
+
+    - name: Copy .docker/config.json settings
+      ansible.builtin.template:
+        src: files/config.json.j2
+        dest: ~/.docker/config.json
+        owner: root
+        group: root
+        mode: 0644
+      when: PROXY_ENABLED
+    
+    - name: Creates etc/systemd/system/docker.service.d directory
+      file:
+        path: /etc/systemd/system/docker.service.d 
+        state: directory
+        owner: root
+        group: root
+        mode: 0644
+      when: PROXY_ENABLED
+  
+    - name: Copy /etc/systemd/system/docker.service.d/http-proxy.conf settings
+      ansible.builtin.template:
+        src: files/http-proxy.conf.j2
+        dest: /etc/systemd/system/docker.service.d/http-proxy.conf
+        owner: root
+        group: root
+        mode: 0644
+      when: PROXY_ENABLED
+      
+    - name: Add Docker GPG apt Key with web proxy
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+      environment:
+       http_proxy: "{{ WEB_PROXY }}"
+       https_proxy: "{{ WEB_PROXY }}"
+      tags:
+        - docker
+      when: PROXY_ENABLED
+    
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+      tags:
+        - docker
+      when: PROXY_ENABLED == false
+  
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu bionic stable
+        state: present
+      tags:
+        - docker
+  
+    - name: Update apt and install docker-ce
+      apt:
+        update_cache: yes
+        name: docker-ce
+        state: latest
+      tags:
+        - docker
+  
+    - name: Install Docker Module for Python with webproxy
+      pip:
+        name: docker
+      environment:
+        http_proxy: "{{ WEB_PROXY }}"
+        https_proxy: "{{ WEB_PROXY }}"
+      tags:
+        - docker
+      when: PROXY_ENABLED
+
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+      tags:
+        - docker
+      when: PROXY_ENABLED == false
+
+    - name: Create a sofie docker network
+      docker_network:
+        name: sofie
+
+    - name: Restart docker service
+      ansible.builtin.systemd:
+        name: docker.service
+        state: restarted
+        enabled: yes

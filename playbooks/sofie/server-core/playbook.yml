@@ -1,0 +1,46 @@
+- name: Select Sofier Server hosts from hosts file
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Copy core-settings 
+      copy:
+        src: "{{ item }}"
+        dest: /opt
+        owner: root
+        mode: 600
+      with_fileglob:
+        - ./files/*
+      tags:
+        - copycoresettings
+    
+    - name: pull Sofie Core
+      docker_image:
+        name: "{{SOFIE_CORE_IMAGE}}:{{ SOFIE_CORE_TAG }}"
+        source: pull
+      tags:
+        - sofiecore
+
+    - name: Run Core
+      docker_container:
+        name: server-core
+        image: "{{SOFIE_CORE_IMAGE}}:{{ SOFIE_CORE_TAG }}"
+        state: started
+        ports:
+          - "127.0.0.1:8080:80/tcp"
+        volumes:
+          - "/opt/coredisk:/opt/coredisk"
+          - "/opt/core-settings.json:/opt/core-settings.json:ro"
+        restart_policy: always
+        network_mode: "sofie"
+        env:
+          TZ: "{{ TIMEZONE }}"
+          MONGO_OPLOG_URL: "mongodb://mongo:27017/local"
+          MONGO_URL: "mongodb://mongo:27017/sofie"
+          ROOT_URL: "http://{{ inventory_hostname }}"
+          PORT: "80"
+          HTTP_FORWARDED_COUNT: "1"
+          NTP_SERVERS: "{{NTP_SERVERS}}" 
+        container_default_behavior: no_defaults
+      tags:
+        - sofiecore

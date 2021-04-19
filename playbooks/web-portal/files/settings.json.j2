@@ -1,0 +1,14 @@
+{
+   "machines": [
+        {% for machine in machines  %}
+        {
+            "id": "{{machine.id}}",
+            "label": "{{machine.label}}",
+            "description": "{{machine.description}}",
+            "hostname": "http://{{machine.hostname}}.{{sofie_portal_dns}}.{{DNS_CORE_DOMAIN}}"
+        }
+        {%if not loop.last%},{%endif%}
+        {% endfor %}
+    ]
+
+}

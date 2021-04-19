@@ -1,0 +1,28 @@
+- name: Setup sofie inews gateway
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: pull Sofie iNews Gateway
+      docker_image:
+        source: pull
+        name: "{{SOFIE_INEWS_IMAGE}}:{{ SOFIE_INEWS_TAG }}"
+      tags:
+        - sofieinewsgw
+
+    - name: Run iNews Gateway
+      docker_container:
+        name: inews-gateway
+        image: "{{SOFIE_INEWS_IMAGE}}:{{ SOFIE_INEWS_TAG }}"
+        state: started
+        restart_policy: always
+        network_mode: "sofie"
+        env:
+          TZ: "{{ TIMEZONE }}"
+          CORE_HOST: "{{ SOFIE_CORE }}"
+          CORE_PORT: "80"
+          DEVICE_ID: "{{ inventory_hostname }}"
+          DEVICE_TOKEN: "{{ DEVICE_TOKEN }}"
+        container_default_behavior: no_defaults
+      tags:
+        - sofieinewsgw
