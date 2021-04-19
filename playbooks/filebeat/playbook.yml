@@ -18,14 +18,14 @@
       environment:
        http_proxy: "{{ WEB_PROXY }}"
        https_proxy: "{{ WEB_PROXY }}"
-      when: "PROXY_ENABLED"
+      when: PROXY_ENABLED
 
     - name: Add Elasticsearch apt key.
       apt_key:
         url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
         id: 46095ACC8548582C1A2699A9D27D666CD88E42B4
         state: present
-      when: "PROXY_ENABLED"
+      when: PROXY_ENABLED == false
 
     - name: Add Filebeat repository.
       apt_repository:
