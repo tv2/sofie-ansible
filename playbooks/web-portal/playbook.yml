@@ -24,6 +24,11 @@
         owner: root
         group: root
         mode: 0644
+    
+    - name: check if user-json file exists
+      stat: 
+        path: /opt/web-portal/users.json
+      register: user_json_check
 
     - name: Copy webportal users
       ansible.builtin.template:
@@ -32,6 +37,7 @@
         owner: root
         group: root
         mode: 0644
+      when: user_json_check.stat.exists == false
 
     - name: Pull nginx docker image
       docker_image:

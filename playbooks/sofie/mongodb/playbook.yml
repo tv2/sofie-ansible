@@ -18,6 +18,14 @@
         owner: root
         group: root
         mode: 0644
+
+    - name: Creates /opt/mongo/conf
+      file:
+        path: /opt/mongo/conf
+        state: directory
+        owner: root
+        group: root
+        mode: 0644
     
     - name: Copy mongodb conf
       ansible.builtin.template:
@@ -49,7 +57,7 @@
           - "/opt/mongo/conf/mongod.conf:/etc/mongod.conf"
         restart_policy: always
         network_mode: "sofie"
-        command: "mongod --replSet rs0"
+        # command: "mongod"
         container_default_behavior: compatibility
       tags:
         - sofiemongo
