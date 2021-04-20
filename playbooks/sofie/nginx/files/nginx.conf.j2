@@ -29,8 +29,10 @@ http {
 		listen 80;
 		listen [::]:80;
 		{% endif %}
+		{% if ENABLE_SSL %}
 		listen 443 ssl http2;
 		listen [::]:443 ssl http2;
+		{% endif %}
 		server_name {{inventory_hostname}}.{{DNS_CORE_DOMAIN}};
 		client_max_body_size 100M;
 		location / {
@@ -39,7 +41,7 @@ http {
 			proxy_set_header X-Forwarded-Proto $scheme;
 			proxy_set_header Upgrade $http_upgrade;
 			proxy_set_header Connection "upgrade";
-			proxy_pass http://localhost:8080/;
+			proxy_pass {{ SERVER_CORE_URL }}/;
 		}
 	}
 
@@ -48,8 +50,10 @@ http {
 		listen 80;
 		listen [::]:80;
 		{% endif %}
+		{% if ENABLE_SSL %}
 		listen 443 ssl http2;
 		listen [::]:443 ssl http2;
+		{% endif %}
 		server_name mediamanager.{{inventory_hostname}}.{{DNS_CORE_DOMAIN}};
 		location / {
 			proxy_set_header HOST $host;
@@ -67,8 +71,10 @@ http {
 		listen 80;
 		listen [::]:80;
 		{% endif %}
+		{% if ENABLE_SSL %}
 		listen 443 ssl http2;
 		listen [::]:443 ssl http2;
+		{% endif %}
 		server_name sisyfos.{{inventory_hostname}}.{{DNS_CORE_DOMAIN}};
 		location / {
 			proxy_set_header HOST $host;
@@ -87,8 +93,10 @@ http {
 		listen 80;
 		listen [::]:80;
 		{% endif %}
+		{% if ENABLE_SSL %}
 		listen 443 ssl http2;
 		listen [::]:443 ssl http2;
+		{% endif %}
 		server_name multiview.{{inventory_hostname}}.{{DNS_CORE_DOMAIN}};
 		location / {
 			root /opt/sofie-blueprints/nginx/external-frames/multiview;
