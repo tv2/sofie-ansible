@@ -37,9 +37,9 @@
       package: name=filebeat state=present
 
     - name: Copy Filebeat configuration.
-      template:
-        src: files/filebeat.yml
-        dest: "/etc/filebeat/filebeat.yml"
+      ansible.builtin.template:
+        src: files/filebeat.yml.j2
+        dest: /etc/filebeat/filebeat.yml
         owner: root
         group: root
         mode: 0644

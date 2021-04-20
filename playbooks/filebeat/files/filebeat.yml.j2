@@ -16,7 +16,7 @@ filebeat.autodiscover:
       templates:
         - condition:
             contains:
-              docker.container.image: olzzon
+              docker.container.image: {{DOCKER_IMAGE_BASE}}
           config:
             - type: container
               fields:
@@ -170,7 +170,7 @@ setup.kibana:
 #-------------------------- Elasticsearch output ------------------------------
 output.elasticsearch:
   # Array of hosts to connect to.
-  hosts: ["X.X.X.X:9200"]
+  hosts: ["{{ELASTIC_IP}}:{{ELASTIC_PORT}}"]
   indices:
     - index:  "sofie-%{[fields.app_id]}-%{+yyyy.MM.dd}"
 
