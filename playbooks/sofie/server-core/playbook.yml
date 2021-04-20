@@ -41,6 +41,5 @@
           PORT: "80"
           HTTP_FORWARDED_COUNT: "1"
           NTP_SERVERS: "{{NTP_SERVERS}}" 
-        container_default_behavior: no_defaults
       tags:
         - sofiecore

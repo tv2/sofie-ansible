@@ -22,7 +22,6 @@
 
     - name: Start sisyfos docker container
       docker_container:
-        container_default_behavior: no_defaults
         restart: true
         name: sisyfos
         image: "{{SISYFOS_IMAGE}}:{{ SISYFOS_TAG }}"

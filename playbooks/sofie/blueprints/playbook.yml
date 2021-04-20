@@ -28,6 +28,5 @@
           SERVER: "{{ SOFIE_CORE }}"
         volumes:
           - "/opt/sofie-blueprints/nginx:/opt/blueprints/nginx"
-        container_default_behavior: no_defaults
       tags:
         - sofieblueprints

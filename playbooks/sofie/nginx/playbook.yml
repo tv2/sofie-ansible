@@ -29,7 +29,6 @@
     - name: Run nginx
       docker_container:
         name: sofie-nginx
-        container_default_behavior: no_defaults
         image: nginx:{{NGINX_TAG}}
         state: started
         restart_policy: always

@@ -41,7 +41,6 @@
         restart_policy: always
         network_mode: "sofie"
         command: "mongod --replSet rs0"
-        container_default_behavior: compatibility
       tags:
         - sofiemongo
 
