@@ -45,6 +45,10 @@
       tags:
         - sofiemongo
 
+    - name: Pause for 20 seconds for mongoDB to start up
+      pause:
+        seconds: "20"
+
     - name: rs.initiate
       shell: "docker exec mongo mongo --quiet --eval 'rs.initiate()'"
 
