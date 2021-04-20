@@ -23,6 +23,7 @@
     - name: Start sisyfos docker container
       docker_container:
         restart: true
+        network_mode: "sofie"
         name: sisyfos
         image: "{{SISYFOS_IMAGE}}:{{ SISYFOS_TAG }}"
         ports:
