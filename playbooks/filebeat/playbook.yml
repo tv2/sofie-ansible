@@ -29,7 +29,7 @@
 
     - name: Add Filebeat repository.
       apt_repository:
-        repo: 'deb https://artifacts.elastic.co/packages/{{ filebeat_version }}/apt stable main'
+        repo: 'deb https://artifacts.elastic.co/packages/{{ FILEBEAT_VERSION }}/apt stable main'
         state: present
         update_cache: true
 

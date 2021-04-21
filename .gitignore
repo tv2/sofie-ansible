@@ -7,3 +7,4 @@ playbook.retry
 .DS_Store
 
 inventories/*
+!inventories/example.inventory.yml

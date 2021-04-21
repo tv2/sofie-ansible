@@ -1,0 +1,80 @@
+all:
+  vars:
+    ENV: "environemnt"
+    TIMEZONE: "timezone"
+    NTP_SERVERS: pool.ntp.org
+
+    # Proxy
+    PROXY_ENABLED: true
+    WEB_PROXY: "webproxy url"
+    PROXY_ENV:
+      HTTP_PROXY: "webproxy url"
+      HTTPS_PROXY: "webproxy url"
+
+    ## Sofie vars
+    # Sofie server core
+    SOFIE_CORE_TAG: develop
+    SOFIE_CORE_IMAGE: olzzon/tv-automation-server-core
+    SOFIE_CORE: http://server-core
+    SOFIE_CORE_URL: http://server-core:80
+    # Sofie inews gateway
+    SOFIE_INEWS_TAG: develop
+    SOFIE_INEWS_IMAGE: olzzon/tv2-inews-ftp-gateway
+    # Sofie playout gateway
+    SOFIE_PLAYOUT_TAG: develop
+    SOFIE_PLAYOUT_IMAGE: olzzon/tv-automation-playout-gateway
+    # Sofie Sisyfos
+    SISYFOS_TAG: develop
+    SISYFOS_IMAGE: olzzon/sisyfos-audio-controller
+    # MongoDB
+    MONGO_TAG: 4.2.7
+    # Nginx
+    NGINX_TAG: latest
+    # Sofie portal
+    SOFIE_PORTAL_TAG: v0.1.5
+    SOFIE_PORTAL_IMAGE: olzzon/tv2-sofie-portal
+    # Sofie blueprints
+    SOFIE_BLUEPRINTS_TAG: develop
+    SOFIE_BLUEPRINTS_IMAGE: olzzon/tv2-sofie-blueprints-inews
+
+    # Logging
+    ELASTIC_IP: xx.xx.xx.xx
+    ELASTIC_PORT: "9200"
+    FILEBEAT_VERSION: 7.x
+    DOCKER_IMAGE_BASE: olzzon
+
+    # NGINX
+    ENABLE_SSL: false
+    ENABLE_HTTP: true
+    DNS_CORE_DOMAIN: "core domain"
+    SISYFOS_URL: http://sisyfos:1176
+    IMAGE_PROVIDER_URL: http://xx.xx.xx.xx:5255
+    MEDIA_PREVIEW_URL: http://xx.xx.xx.xx:8000
+    IS_QBOX: false
+
+# All hosts groups should be defined here
+sofiehosts:
+  vars:
+    PROXY_ENABLED: false
+  hosts:
+    sofie-host-1:
+      DEVICE_TOKEN: zcxvasdfavzxcvxz
+    sofie-host-2:
+      DEVICE_TOKEN: asfqwerzdsfaascc
+
+webportal:
+  vars:
+    machines:
+      - id: "1"
+        label: Sofie 1
+        description:
+        hostname: sofie-host-1
+        destination: http://xx.xx.xx.xx
+      - id: "2"
+        label: Sofie 2
+        description:
+        hostname: sofie-host-2
+        destination: http://xx.xx.xx.xx
+  hosts:
+    sofportal01-od:
+      sofie_portal_dns: sofieportal
