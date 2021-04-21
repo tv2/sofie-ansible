@@ -1,0 +1,33 @@
+- name: Sofie Kibana server
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Copy kibana settings
+      ansible.builtin.template:
+        src: files/kibana.yml.j2
+        dest: /opt/kibana/kibana.yml
+        owner: root
+        group: root
+        mode: 0644
+    
+    - name: pull kibana image
+      docker_image:
+        name: "{{KIBANA_IMAGE}}:{{ KIBANA_IMAGE_TAG }}"
+        source: pull
+      tags:
+        - kibana
+
+    - name: Run kibana
+      docker_container:
+        name: kibana
+        image: "{{KIBANA_IMAGE}}:{{ KIBANA_IMAGE_TAG }}"
+        state: started
+        ports:
+          - "5601:5601/tcp"
+        volumes:
+          - "/opt/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml"
+        restart_policy: always
+        network_mode: "elk"
+      tags:
+        - kibana
