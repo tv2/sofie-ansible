@@ -6,6 +6,7 @@
             "label": "{{machine.label}}",
             "description": "{{machine.description}}",
             "hostname": "http://{{machine.hostname}}.{{sofie_portal_dns}}.{{DNS_CORE_DOMAIN}}"
+            "pathArgs": "{{machine.pathArgs}}"
         }
         {%if not loop.last%},{%endif%}
         {% endfor %}
