@@ -25,7 +25,7 @@
         state: started
         network_mode: "sofie"
         env:
-          SERVER: "{{ SOFIE_CORE }}"
+          SERVER: http://"{{ SOFIE_CORE }}"
         volumes:
           - "/opt/sofie-blueprints/nginx:/opt/blueprints/nginx"
       tags:
