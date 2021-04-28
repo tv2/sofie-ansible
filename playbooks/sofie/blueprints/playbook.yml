@@ -25,8 +25,24 @@
         state: started
         network_mode: "sofie"
         env:
-          SERVER: "http://{{SOFIE_CORE}}:80"
+          SERVER: "http://server-core:80"
         volumes:
           - "/opt/sofie-blueprints/nginx:/opt/blueprints/nginx"
       tags:
         - sofieblueprints
+      when: PROXY_ENABLED == false
+
+    - name: Run Sofie Blueprints with http proxy
+      docker_container:
+        name: blueprint-build
+        image: "{{SOFIE_BLUEPRINTS_IMAGE}}:{{ SOFIE_BLUEPRINTS_TAG }}"
+        state: started
+        network_mode: "sofie"
+        env:
+          SERVER: "http://server-core:80"
+          HTTP_PROXY: "{{WEB_PROXY}}"
+        volumes:
+          - "/opt/sofie-blueprints/nginx:/opt/blueprints/nginx"
+      tags:
+        - sofieblueprints
+      when: PROXY_ENABLED == true
