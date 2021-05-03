@@ -12,6 +12,26 @@
         owner: root
         group: root
         mode: 0644
+    
+    - name: Copy sisyfos settings files
+      copy:
+        src: "{{ item }}"
+        dest: /opt/sisyfos-audio-controller
+        owner: root
+        mode: 600
+      with_fileglob:
+        - ./files/offtube/*.x32
+        - ./files/offtube/*.shot
+      when: IS_QBOX
+
+    - name: Copy sisyfos settings.json 
+      ansible.builtin.template:
+        src: files/offtube/settings.json.j2
+        dest: /opt/sisyfos-audio-controller/settings.json
+        owner: root
+        group: root
+        mode: 0644
+      when: IS_QBOX
 
     - name: Pull sisyfos image
       docker_image:
