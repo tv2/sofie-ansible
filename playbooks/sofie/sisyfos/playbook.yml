@@ -22,6 +22,7 @@
       with_fileglob:
         - ./files/offtube/*.x32
         - ./files/offtube/*.shot
+        - ./files/offtube/*.json
       when: IS_QBOX
 
     - name: Copy sisyfos settings.json 
