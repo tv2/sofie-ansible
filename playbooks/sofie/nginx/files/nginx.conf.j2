@@ -41,7 +41,7 @@ http {
 			proxy_set_header X-Forwarded-Proto $scheme;
 			proxy_set_header Upgrade $http_upgrade;
 			proxy_set_header Connection "upgrade";
-			proxy_pass {{ SOFIE_CORE_URL }}/;
+			proxy_pass {{SOFIE_CORE_URL}}/;
 		}
 	}
 
@@ -61,7 +61,7 @@ http {
 			proxy_set_header X-Forwarded-Proto $scheme;
 			proxy_set_header Upgrade $http_upgrade;
 			proxy_set_header Connection "upgrade";
-			proxy_pass {{ MEDIA_PREVIEW_URL }}/;
+			proxy_pass http://{{CASPER_CG_IP}}:8000/;
 		}
 	}
 
@@ -82,7 +82,7 @@ http {
 			proxy_set_header X-Forwarded-Proto $scheme;
 			proxy_set_header Upgrade $http_upgrade;
 			proxy_set_header Connection "upgrade";
-			proxy_pass {{ SISYFOS_URL }}/;
+			proxy_pass {{SISYFOS_URL}}/;
 		}
 	}
 	{% endif %}
@@ -107,7 +107,7 @@ http {
 			proxy_set_header X-Forwarded-Proto $scheme;
 			proxy_set_header Upgrade $http_upgrade;
 			proxy_set_header Connection "upgrade";
-			proxy_pass {{ IMAGE_PROVIDER_URL }}/;
+			proxy_pass http://{{CASPER_CG_STREAM_IP}}:5255/;
 		}	
 	}
 	{% endif %}

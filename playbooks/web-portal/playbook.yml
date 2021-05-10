@@ -79,6 +79,7 @@
         image: "{{SOFIE_PORTAL_IMAGE}}:{{ SOFIE_PORTAL_TAG }}"
         ports:
           - "3000/tcp"
+          - "9000:9000/tcp"
         volumes:
           - "/opt/web-portal/settings.json:/opt/tv2-sofie-portal/build/storage/settings.json"
           - "/opt/web-portal/users.json:/opt/tv2-sofie-portal/build/storage/users.json"
