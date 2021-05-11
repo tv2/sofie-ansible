@@ -99,7 +99,7 @@ http {
 		{% endif %}
 		server_name multiview.{{inventory_hostname}}.{{DNS_CORE_DOMAIN}};
 		location / {
-			root /opt/sofie-blueprints/nginx/external-frames/multiview;
+			root /opt/blueprints/nginx/external-frames/multiview;
 		}
 		location /feed/ {
 			proxy_set_header HOST $host;
