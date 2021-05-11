@@ -1,0 +1,22 @@
+- name: Generate snapshot files for QBOX
+  hosts: localhost
+
+  tasks:
+    - name: Ensure snapshot output directory
+      file:
+        path: ./snapshots
+        state: directory
+
+    - name: Iterate over each QBOX
+      template:
+        src: ./snapshot-templates/{{ QBOX_SNAPSHOT_TEMPLATE }}
+        dest: ./snapshots/{{ item }}.json
+      vars:
+        QBOX_NUM: "{{ hostvars[item].QBOX_NUM }}"
+        DEVICE_TOKEN: "{{ hostvars[item].DEVICE_TOKEN }}"
+        SELF_IP: "{{ hostvars[item].SELF_IP }}"
+        ATEM_IP: "{{ hostvars[item].ATEM_IP }}"
+        CASPER_CG_IP: "{{ hostvars[item].CASPER_CG_IP }}"
+      with_items: "{{ groups['qbox'] }}"
+
+
