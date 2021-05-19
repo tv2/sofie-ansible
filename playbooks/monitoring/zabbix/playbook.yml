@@ -1,0 +1,18 @@
+- name: Setup Zabbix Monitoring
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Run zabbix docker agent
+      docker_container:
+        name: zabbix-agent
+        image: "zabbix/zabbix-agent:{{ZBX_IMAGE_TAG}}"
+        state: started
+        restart_policy: always
+        privileged: true
+        env:
+          ZBX_HOSTNAME: "{{inventory_hostname}}"
+          ZBX_SERVER_HOST: "{{ZBX_SERVER_HOST}}"
+          ZBX_METADATA: "{{ZBX_METADATA}}"
+      tags:
+        - zabbix
