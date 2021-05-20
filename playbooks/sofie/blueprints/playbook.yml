@@ -40,6 +40,8 @@
         network_mode: "sofie"
         env:
           SERVER: "http://server-core:80"
+          http_proxy: "{{ WEB_PROXY }}"
+          https_proxy: "{{ WEB_PROXY }}"
           NO_PROXY: "server-core"
         volumes:
           - "/opt/sofie-blueprints/nginx:/opt/blueprints/nginx"
