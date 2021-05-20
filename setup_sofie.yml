@@ -2,6 +2,7 @@
  - import_playbook: playbooks/ubuntu/playbook.yml
  - import_playbook: playbooks/docker/playbook.yml
  - import_playbook: playbooks/filebeat/playbook.yml
+ - import_playbook: playbooks/monitoring/zabbix/playbook.yml
  - import_playbook: playbooks/sofie/mongodb/playbook.yml
  - import_playbook: playbooks/sofie/server-core/playbook.yml
  - import_playbook: playbooks/sofie/blueprints/playbook.yml
