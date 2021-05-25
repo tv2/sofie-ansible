@@ -65,6 +65,28 @@ http {
 		}
 	}
 
+        {% if CASPAR_CG_IP_2 is defined and CASPAR_CG_IP_2|length %}
+	server {
+		{% if ENABLE_HTTP %}
+		listen 80;
+		listen [::]:80;
+		{% endif %}
+		{% if ENABLE_SSL %}
+		listen 443 ssl http2;
+		listen [::]:443 ssl http2;
+		{% endif %}
+		server_name mediamanager.{{inventory_hostname}}.{{DNS_CORE_DOMAIN}};
+		location /jingler/ {
+			proxy_set_header HOST $host;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header X-Forwarded-Proto $scheme;
+			proxy_set_header Upgrade $http_upgrade;
+			proxy_set_header Connection "upgrade";
+			proxy_pass http://{{CASPAR_CG_IP_2}}:8000/;
+		}
+	}
+        {% endif %}
+
 	{% if SISYFOS_URL %}
 	server {
 		{% if ENABLE_HTTP %}
