@@ -1,7 +1,7 @@
 # Ansible Playbook setting up Sofie Portal
 
 - name: Setup user web portal
-  hosts: all
+  hosts: webportal
   become: yes
   tasks:
 
