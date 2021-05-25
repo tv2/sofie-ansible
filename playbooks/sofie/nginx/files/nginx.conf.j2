@@ -61,7 +61,7 @@ http {
 			proxy_set_header X-Forwarded-Proto $scheme;
 			proxy_set_header Upgrade $http_upgrade;
 			proxy_set_header Connection "upgrade";
-			proxy_pass http://{{CASPER_CG_IP}}:8000/;
+			proxy_pass http://{{CASPAR_CG_IP}}:8000/;
 		}
 	}
 
@@ -107,7 +107,7 @@ http {
 			proxy_set_header X-Forwarded-Proto $scheme;
 			proxy_set_header Upgrade $http_upgrade;
 			proxy_set_header Connection "upgrade";
-			proxy_pass http://{{CASPER_CG_STREAM_IP}}:5255/;
+			proxy_pass http://{{CASPAR_CG_STREAM_IP}}:5255/;
 		}	
 	}
 	{% endif %}
