@@ -172,7 +172,7 @@ output.elasticsearch:
   # Array of hosts to connect to.
   hosts: ["{{ELASTIC_IP}}:{{ELASTIC_PORT}}"]
   indices:
-    - index:  "sofie-%{[fields.app_id]}-%{+yyyy.MM.dd}"
+    - index:  "sofie-%{[fields.app_id]}-{{ENV}}-%{+yyyy.MM.dd}"
 
   # Optional protocol and basic auth credentials.
   #protocol: "https"
