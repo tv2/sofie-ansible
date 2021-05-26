@@ -117,9 +117,9 @@ setup.template.settings:
 
 # Optional fields that you can specify to add additional information to the
 # output.
-#fields:
-#  env: staging
-
+fields:
+  host: {{inventory_hostname}}
+  environment: {{ENV}}
 
 #============================== Dashboards =====================================
 # These settings control loading the sample dashboards to the Kibana index. Loading
