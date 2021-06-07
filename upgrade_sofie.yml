@@ -1,0 +1,5 @@
+---
+ - import_playbook: playbooks/sofie/server-core/playbook.yml
+ - import_playbook: playbooks/sofie/blueprints/playbook.yml
+ - import_playbook: playbooks/sofie/playout-gateway/playbook.yml
+ - import_playbook: playbooks/sofie/inews-ftp-gateway/playbook.yml
