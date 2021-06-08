@@ -21,12 +21,12 @@
     - name: pull nginx
       docker_image:
         source: pull
-        name: {{ SOFIE_HEALTH_MONITOR_IMAGE }}:{{ SOFIE_HEALTH_MONITOR_TAG }}
+        name: "{{ SOFIE_HEALTH_MONITOR_IMAGE }}:{{ SOFIE_HEALTH_MONITOR_TAG }}"
 
     - name: Run nginx
       docker_container:
         name: sofie-nginx
-        image: {{ SOFIE_HEALTH_MONITOR_IMAGE }}:{{ SOFIE_HEALTH_MONITOR_TAG }}
+        image: "{{ SOFIE_HEALTH_MONITOR_IMAGE }}:{{ SOFIE_HEALTH_MONITOR_TAG }}"
         state: started
         restart_policy: always
         volumes:
