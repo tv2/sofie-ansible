@@ -14,18 +14,18 @@
     - name: Generate hosts.json
       template:
         src: files/hosts.json.j2
-        dest: /opt/sofie-health-monitor
+        dest: /opt/sofie-health-monitor/hosts.json/hosts.json
       vars:
         TARGETS: "{{ groups['qbox'] + groups['afvd'] }}"
 
-    - name: pull nginx
+    - name: Pull docker image
       docker_image:
         source: pull
         name: "{{ SOFIE_HEALTH_MONITOR_IMAGE }}:{{ SOFIE_HEALTH_MONITOR_TAG }}"
 
-    - name: Run nginx
+    - name: Run docker image
       docker_container:
-        name: sofie-nginx
+        name: sofie-health-monitor
         image: "{{ SOFIE_HEALTH_MONITOR_IMAGE }}:{{ SOFIE_HEALTH_MONITOR_TAG }}"
         state: started
         restart_policy: always
