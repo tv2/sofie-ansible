@@ -1,0 +1,11 @@
+[
+{% for TARGET in TARGETS %}
+  {
+    "name": "{{ TARGET }}",
+    "endpoints": {
+      "health": "http://{{ TARGET }}/health",
+      "rundown": "http://{{ TARGET }}/api/0/publication/rundownPlaylists/{\"active\":true}/undefined"
+    }
+  }{% if not loop.last %},{% endif %}
+
+{% endfor %}]

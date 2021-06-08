@@ -1,0 +1,37 @@
+- name: Setup Sofie Health Monitor
+  hosts: health
+  become: yes
+
+  tasks:
+    - name: Create data folder
+      file:
+        path: /opt/sofie-health-monitor
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Generate hosts.json
+      template:
+        src: files/hosts.json.j2
+        dest: /opt/sofie-health-monitor
+      vars:
+        TARGETS: "{{ groups['qbox'] + groups['afvd'] }}"
+
+    - name: pull nginx
+      docker_image:
+        source: pull
+        name: {{ SOFIE_HEALTH_MONITOR_IMAGE }}:{{ SOFIE_HEALTH_MONITOR_TAG }}
+
+    - name: Run nginx
+      docker_container:
+        name: sofie-nginx
+        image: {{ SOFIE_HEALTH_MONITOR_IMAGE }}:{{ SOFIE_HEALTH_MONITOR_TAG }}
+        state: started
+        restart_policy: always
+        volumes:
+          - "/opt/sofie-health-monitor/hosts.json:/usr/src/app/hosts.json"
+        ports:
+          - "80:8080"
+
+
