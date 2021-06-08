@@ -14,7 +14,7 @@
     - name: Generate hosts.json
       ansible.builtin.template:
         src: files/hosts.json.j2
-        dest: /opt/sofie-health-monitor/hosts.json
+        dest: /opt/sofie-health-monitor/data/hosts.json
         owner: root
         group: root
         mode: 0644
