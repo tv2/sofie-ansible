@@ -15,6 +15,9 @@
       template:
         src: files/hosts.json.j2
         dest: /opt/sofie-health-monitor/hosts.json
+        owner: root
+        group: root
+        mode: 0644
       vars:
         TARGETS: "{{ groups['qbox'] + groups['afvd'] }}"
 
