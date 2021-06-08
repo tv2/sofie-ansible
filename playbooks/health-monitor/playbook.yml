@@ -12,7 +12,7 @@
         mode: 0755
 
     - name: Generate hosts.json
-      template:
+      ansible.builtin.template:
         src: files/hosts.json.j2
         dest: /opt/sofie-health-monitor/hosts.json
         owner: root
