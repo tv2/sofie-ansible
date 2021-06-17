@@ -1,0 +1,24 @@
+- name: Setup Datadog Monitoring
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Run datadog docker agent
+      docker_container:
+        name: datadog-agent
+        image: "gcr.io/datadoghq/agent:{{DATADOG_IMAGE_TAG}}"
+        state: started
+        restart_policy: always
+        privileged: true
+        volumes:
+          - "/var/run/docker.sock:/var/run/docker.sock:ro"
+          - "/proc/:/host/proc/:ro"
+          - "/sys/fs/cgroup/:/host/sys/fs/cgroup:ro"
+        env:
+          DD_API_KEY: "{{DATADOG_API_KEY}}"
+          DD_HOSTNAME: "{{inventory_hostname}}"
+          DD_ENV: "{{ENV}}"
+          DD_PROXY_HTTP: "{{WEB_PROXY}}"
+          DD_PROXY_HTTPS: "{{WEB_PROXY}}"
+      tags:
+        - datadog
