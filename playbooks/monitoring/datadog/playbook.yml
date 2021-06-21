@@ -24,5 +24,6 @@
           DD_LOGS_ENABLED: "true"
           DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL: "true"
           DD_LOGS_CONFIG_DOCKER_CONTAINER_USE_FILE: "true"
+          DD_CONTAINER_EXCLUDE: "name:datadog-agent"
       tags:
         - datadog
