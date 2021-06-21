@@ -24,9 +24,7 @@ filebeat.autodiscover:
               paths:
                 - /var/lib/docker/containers/${data.docker.container.id}/*.log
               exclude_lines: ["^\\s+[\\-`('.|_]"]
-              processors:
-              - decode_json_fields:
-                  fields: ["message"]
+              json.message_key: log
 
 #=========================== Filebeat inputs =============================
 
