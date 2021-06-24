@@ -1,0 +1,17 @@
+- name: Setup Sofie Health Monitor
+  hosts: localhost
+
+  tasks:
+    - name: Pull docker image
+      docker_image:
+        source: pull
+        name: "{{ SOFIE_DEPLOYMENT_SERVER_IMAGE }}:{{ SOFIE_DEPLOYMENT_SERVER_TAG }}"
+
+    - name: Run docker image
+      docker_container:
+        name: sofie-health-monitor
+        image: "{{ SOFIE_DEPLOYMENT_SERVER_IMAGE }}:{{ SOFIE_DEPLOYMENT_SERVER_TAG }}"
+        state: started
+        restart_policy: always
+        ports:
+          - "80:8080"
