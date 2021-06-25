@@ -9,7 +9,7 @@
 
     - name: Run docker image
       docker_container:
-        name: sofie-health-monitor
+        name: deployment-server
         image: "{{ SOFIE_DEPLOYMENT_SERVER_IMAGE }}:{{ SOFIE_DEPLOYMENT_SERVER_TAG }}"
         state: started
         restart_policy: always
