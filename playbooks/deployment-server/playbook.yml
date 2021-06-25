@@ -1,5 +1,6 @@
-- name: Setup Sofie Health Monitor
+- name: Setup Sofie Deployment Server
   hosts: localhost
+  become: yes
 
   tasks:
     - name: Pull docker image
