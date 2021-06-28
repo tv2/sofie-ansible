@@ -5,6 +5,7 @@
   tasks:
     - name: Pull docker image
       docker_image:
+        force: yes
         source: pull
         name: "{{ SOFIE_DEPLOYMENT_SERVER_IMAGE }}:{{ SOFIE_DEPLOYMENT_SERVER_TAG }}"
 
