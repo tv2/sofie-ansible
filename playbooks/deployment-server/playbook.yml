@@ -20,6 +20,7 @@
         volumes:
           - "/usr/local/home/ansible/.ssh/id_rsa:/usr/src/app/id_rsa"
         env:
+          LOG_LEVEL: "debug"
           SSH_HOST: "172.17.0.1"
           SSH_USER: "ansible"
           SSH_PRIVATE_KEY: "/usr/src/app/id_rsa"
