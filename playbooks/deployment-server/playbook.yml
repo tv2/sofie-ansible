@@ -18,11 +18,11 @@
         ports:
           - "80:8080"
         volumes:
-          - "/usr/local/home/ansible/.ssh/id_rsa:/usr/src/app/id_rsa"
+          - "/usr/local/home/ansible/.ssh:/usr/src/app/.ssh"
         env:
           LOG_LEVEL: "debug"
           SSH_HOST: "172.17.0.1"
           SSH_USER: "ansible"
-          SSH_PRIVATE_KEY: "/usr/src/app/id_rsa"
+          SSH_PRIVATE_KEY: "/usr/src/app/.ssh/id_rsa"
           SSH_CWD: "/usr/local/home/ansible"
           RUN_ANSIBLE_PLAYBOOK: "./ansible-production.sh"
