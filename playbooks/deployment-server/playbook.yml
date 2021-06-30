@@ -18,7 +18,7 @@
         ports:
           - "80:8080"
         volumes:
-          - "/usr/local/home/ansible/.ssh:/usr/src/app/.ssh"
+          - "/usr/local/home/ansible/.ssh:/usr/src/app/.ssh:ro"
         env:
           LOG_LEVEL: "debug"
           SSH_HOST: "172.17.0.1"
