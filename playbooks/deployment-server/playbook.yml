@@ -3,6 +3,14 @@
   become: yes
 
   tasks:
+    - name: Create data folder
+      file:
+        path: /opt/sofie-deployment-server/data
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
     - name: Generate users.json
       ansible.builtin.template:
         src: files/users.json.j2
