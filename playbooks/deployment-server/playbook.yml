@@ -25,4 +25,4 @@
           SSH_USER: "ansible"
           SSH_PRIVATE_KEY: "/usr/src/app/.ssh/id_rsa"
           SSH_CWD: "/usr/local/home/ansible"
-          RUN_ANSIBLE_PLAYBOOK: "./ansible-production.sh"
+          RUN_ANSIBLE_PLAYBOOK: "source ~/.bash_profile && ./ansible-production.sh"
