@@ -23,6 +23,7 @@
 
     - name: Pull docker image
       docker_image:
+        force_source: yes
         source: pull
         name: "{{ SOFIE_HEALTH_MONITOR_IMAGE }}:{{ SOFIE_HEALTH_MONITOR_TAG }}"
 
