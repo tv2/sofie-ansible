@@ -1,0 +1,8 @@
+{
+  {% for USER in SOFIE_DEPLOYMENT_SERVER_USERS %}
+  "{{ USER.user }}": {
+    "password": "{{ USER.password }}",
+    "permissions": {{ USER.permissions | to_json }}
+  }{% if not loop.last %},{% endif %}
+  {% endfor %}
+}
