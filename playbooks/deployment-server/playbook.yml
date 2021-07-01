@@ -3,6 +3,22 @@
   become: yes
 
   tasks:
+    - name: Create data folder
+      file:
+        path: /opt/sofie-deployment-server/data
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Generate users.json
+      ansible.builtin.template:
+        src: files/users.json.j2
+        dest: /opt/sofie-deployment-server/data/users.json
+        owner: root
+        group: root
+        mode: 0644
+
     - name: Pull docker image
       docker_image:
         force_source: yes
@@ -18,7 +34,8 @@
         ports:
           - "80:8080"
         volumes:
-          - "/usr/local/home/ansible/.ssh:/usr/src/app/.ssh"
+          - "/usr/local/home/ansible/.ssh:/usr/src/app/.ssh:ro"
+          - "/opt/sofie-deployment-server/data:/usr/src/app/data:ro"
         env:
           LOG_LEVEL: "debug"
           SSH_HOST: "172.17.0.1"
@@ -27,3 +44,4 @@
           SSH_PASSPHRASE: "/usr/src/app/.ssh/id_rsa.passphrase"
           SSH_CWD: "/usr/local/home/ansible"
           RUN_ANSIBLE_PLAYBOOK: "source ~/.bash_profile && ./ansible-production.sh"
+          DEPLOYMENT_USERS: "/usr/src/app/data/users.json"
