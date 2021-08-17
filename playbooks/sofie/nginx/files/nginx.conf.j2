@@ -98,10 +98,13 @@ http {
 		listen [::]:443 ssl http2;
 		{% endif %}
 		server_name multiview.{{inventory_hostname}}.{{DNS_CORE_DOMAIN}};
+		
 		location / {
 			root /opt/blueprints/nginx/external-frames/multiview;
 		}
+
 		location /feed/ {
+			rewrite ^/feed(/?)(.*) /stream/stream{{CASPAR_CG_STREAM_NUM}} break;
 			proxy_set_header HOST $host;
 			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 			proxy_set_header X-Forwarded-Proto $scheme;
