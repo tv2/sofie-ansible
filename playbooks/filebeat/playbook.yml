@@ -44,8 +44,8 @@
         group: root
         mode: 0644
 
-    - name: Ensure Filebeat is started and enabled at boot.
+    - name: Ensure Filebeat is restartet and enabled at boot.
       service:
         name: filebeat
-        state: started
+        state: restarted
         enabled: true
