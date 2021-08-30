@@ -14,9 +14,12 @@ filebeat.autodiscover:
   providers:
     - type: docker
       templates:
-        - condition:
-            contains:
+       # Temp condition or to include olzzon in transition face
+        - condition.or:
+          - contains:
               docker.container.image: {{DOCKER_IMAGE_BASE}}
+          - contains:
+              docker.container.image: olzzon
           config:
             - type: container
               fields:
