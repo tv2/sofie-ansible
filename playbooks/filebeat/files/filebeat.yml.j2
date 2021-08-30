@@ -14,12 +14,12 @@ filebeat.autodiscover:
   providers:
     - type: docker
       templates:
-       # Temp condition or to include olzzon in transition face
+       # Condition to anble change of base image in transition face
         - condition.or:
           - contains:
               docker.container.image: {{DOCKER_IMAGE_BASE}}
           - contains:
-              docker.container.image: olzzon
+              docker.container.image: {{OLD_DOCKER_IMAGE_BASE}}
           config:
             - type: container
               fields:
