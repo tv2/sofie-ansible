@@ -6,6 +6,7 @@
 		"defaultDisplayDuration": 4000,
 		"allowRundownResetOnAir": true,
 		"keyboardMapLayout": "STANDARD_102",
-		"followOnAirSegmentsHistory": 1
+		"followOnAirSegmentsHistory": 1,
+		"preserveUnsyncedPlayingSegmentContents": true
 	}
 }
